@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
 
 
 class TaskType(models.Model):
@@ -12,6 +12,12 @@ class Position(models.Model):
 
 class Worker(AbstractUser):
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
+
+    groups = models.ManyToManyField(Group, related_name="worker_set")
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name="worker_set"
+    )
 
     class Meta:
         ordering = ["first_name"]

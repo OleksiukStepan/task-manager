@@ -13,6 +13,11 @@ class Position(models.Model):
 class Worker(AbstractUser):
     position = models.ForeignKey(Position, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ["first_name"]
+        verbose_name = "worker"
+        verbose_name_plural = "workers"
+
 
 class Task(models.Model):
     name = models.CharField(max_length=100)

@@ -3,11 +3,11 @@ from django.contrib.auth.models import AbstractUser
 
 
 class TaskType(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
 
 
 class Position(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
 
 
 class Worker(AbstractUser):
@@ -20,7 +20,7 @@ class Worker(AbstractUser):
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     deadline = models.DateField()
     is_complete = models.BooleanField(default=False)

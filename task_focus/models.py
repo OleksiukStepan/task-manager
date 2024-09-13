@@ -5,9 +5,15 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 class TaskType(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Position(models.Model):
     name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Worker(AbstractUser):
@@ -23,6 +29,9 @@ class Worker(AbstractUser):
         verbose_name = "worker"
         verbose_name_plural = "workers"
 
+    def __str__(self):
+        return f"{self.username} ({self.first_name} {self.last_name})"
+
 
 class Task(models.Model):
     CHOICES = [(1, "Urgent"), (2, "High"), (3, "Medium"), (4, "Low")]
@@ -34,3 +43,6 @@ class Task(models.Model):
     priority = models.IntegerField(choices=CHOICES, default=3)
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
     assignees = models.ManyToManyField(Worker, related_name="tasks")
+
+    def __str__(self):
+        return self.name

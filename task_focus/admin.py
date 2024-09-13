@@ -7,6 +7,7 @@ from task_focus.models import TaskType, Position, Worker, Task
 @admin.register(Worker)
 class WorkerAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ("position",)
+    list_filter = UserAdmin.list_filter + ("position",)
     fieldsets = UserAdmin.fieldsets + (
         (("Additional info", {"fields": ("position",)}),)
     )
@@ -27,9 +28,10 @@ class WorkerAdmin(UserAdmin):
 
 
 @admin.register(Task)
-class Task(admin.ModelAdmin):
+class TaskAdmin(admin.ModelAdmin):
     search_fields = ("name",)
-    list_filter = ("deadline", "is_complete", "priority",)
+    list_display = ("name", "deadline", "priority", "task_type",)
+    list_filter = ("deadline", "is_complete", "priority", "task_type",)
 
 
 admin.site.register(TaskType)

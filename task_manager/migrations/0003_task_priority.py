@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("task_focus", "0002_alter_worker_position"),
+        ("task_manager", "0002_alter_worker_position"),
     ]
 
     operations = [

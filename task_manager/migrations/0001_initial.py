@@ -155,7 +155,7 @@ class Migration(migrations.Migration):
                     "position",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="task_focus.position",
+                        to="task_manager.position",
                     ),
                 ),
             ],
@@ -194,7 +194,7 @@ class Migration(migrations.Migration):
                     "task_type",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        to="task_focus.tasktype",
+                        to="task_manager.tasktype",
                     ),
                 ),
             ],

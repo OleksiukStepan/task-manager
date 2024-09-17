@@ -9,5 +9,5 @@ from django.template import loader
 def index(request):
     context = {'segment': 'index'}
 
-    html_template = loader.get_template('pages/index2.html')
+    html_template = loader.get_template('pages/index.html')
     return HttpResponse(html_template.render(context, request))

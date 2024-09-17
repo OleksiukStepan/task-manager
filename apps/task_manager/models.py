@@ -43,6 +43,7 @@ class Task(models.Model):
     priority = models.IntegerField(choices=CHOICES, default=3)
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
     assignees = models.ManyToManyField(Worker, related_name="tasks")
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

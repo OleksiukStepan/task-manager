@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
     # my apps
     "apps.task_manager",
-    # "apps.authentication"
+    # "apps.accounts"
 ]
 
 MIDDLEWARE = [

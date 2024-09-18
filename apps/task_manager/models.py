@@ -23,6 +23,11 @@ class Worker(AbstractUser):
         null=True,
         blank=True,
     )
+    # profile_image = models.ImageField(
+    #     upload_to=worker_image_file_path,
+    #     blank=True,
+    #     null=True
+    # )
 
     class Meta:
         ordering = ["first_name"]

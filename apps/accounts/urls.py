@@ -12,4 +12,4 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(), name="logout")
 ]
 
-app_name = "authentication"
+app_name = "accounts"

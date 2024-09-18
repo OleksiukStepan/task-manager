@@ -5,11 +5,10 @@ from django.template import loader
 from apps.task_manager.models import Task, Worker
 
 
-# @login_required(login_url="/login/")
+@login_required(login_url="/login/")
 def index(request):
     recent_tasks = Task.objects.order_by("-created_at")[:5]
     team_members = Worker.objects.all()[:5]
-
 
     context = {
         "segment": "index",

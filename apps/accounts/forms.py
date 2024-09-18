@@ -2,6 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from apps.task_manager.models import Worker
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -51,5 +53,5 @@ class SignUpForm(UserCreationForm):
         ))
 
     class Meta:
-        model = User
+        model = Worker
         fields = ('username', 'email', 'password1', 'password2')

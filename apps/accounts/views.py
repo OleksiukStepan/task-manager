@@ -69,7 +69,7 @@ def register_user(request):
 
 
 class ResetPassword(LoginRequiredMixin, PasswordChangeView):
-    template_name = "accounts/reset-password.html"
+    template_name = "accounts/reset_password.html"
     success_url = reverse_lazy("accounts:login")
     form_class = PasswordChangeForm
 

@@ -52,7 +52,18 @@ class SignUpForm(UserCreationForm):
                 "class": "form-control"
             }
         ))
+    agree_terms = forms.BooleanField(
+        required=True, label="I agree to the terms and conditions"
+    )
 
     class Meta:
         model = Worker
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2', 'agree_terms')
+
+    def clean_agree_terms(self):
+        agree = self.cleaned_data.get("agree_terms")
+        if not agree:
+            raise forms.ValidationError(
+                "You must agree to the terms and conditions to register."
+            )
+        return agree

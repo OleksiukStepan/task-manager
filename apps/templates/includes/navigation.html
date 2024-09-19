@@ -20,13 +20,14 @@
         </form>
         <!-- / Search form -->
       </div>
-{#      <!-- Navbar links -->#}
+      {#      <!-- Navbar links -->#}
       <ul class="navbar-nav align-items-center">
         <li class="nav-item dropdown ms-lg-3">
           <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown"
              aria-expanded="false">
             <div class="media d-flex align-items-center">
-              <img class="avatar rounded-circle" alt="Image placeholder" src="{% static 'assets/img/team/profile-picture-3.jpg' %}">
+              <img class="avatar rounded-circle" alt="Image placeholder"
+                   src="{% static 'assets/img/team/profile-picture-3.jpg' %}">
               <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                 <span class="mb-0 font-small fw-bold text-gray-900">
                   <strong>{{ request.user.username }}</strong>
@@ -34,8 +35,10 @@
               </div>
             </div>
           </a>
+
+          <!-- Profile Dropdown Menu -->
           <div class="dropdown-menu dashboard-dropdown dropdown-menu-end mt-2 py-1">
-            {#  <a class="dropdown-item d-flex align-items-center" href="/settings.html">#}
+            <!-- My Profile -->
             <a class="dropdown-item d-flex align-items-center" href="#">
               <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20"
                    xmlns="http://www.w3.org/2000/svg">
@@ -45,22 +48,35 @@
               </svg>
               My Profile
             </a>
-            
+
+            <!-- My Tasks -->
+            <a class="dropdown-item d-flex align-items-center" href="#">
+              <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M4 3a1 1 0 011-1h8a1 1 0 01.707.293l3 3A1 1 0 0117 6v10a1 1 0 01-1 1H5a1 1 0 01-1-1V3zm2 2a1 1 0 100 2h6a1 1 0 100-2H6zm0 4a1 1 0 100 2h8a1 1 0 100-2H6zm0 4a1 1 0 100 2h4a1 1 0 100-2H6z"
+                      clip-rule="evenodd"></path>
+              </svg>
+              My Tasks
+            </a>
+
             <div role="separator" class="dropdown-divider my-1"></div>
-            
+
+            <!-- Logout -->
             {% if user.is_authenticated %}
-            <form method="POST" action="{% url 'accounts:logout' %}">
-              {% csrf_token %}
-              <button type="submit" class="dropdown-item d-flex align-items-center">
-                <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                     xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                </svg>
-                Logout
-              </button>
-            </form>
+              <form method="POST" action="{% url 'accounts:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item d-flex align-items-center">
+                  <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                       xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                  </svg>
+                  Logout
+                </button>
+              </form>
             {% else %}
+              <!-- Login -->
               <a class="dropdown-item d-flex align-items-center" href="{% url 'accounts:login' %}">
                 <svg class="dropdown-icon text-success me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                      xmlns="http://www.w3.org/2000/svg">
@@ -70,6 +86,7 @@
                 Login
               </a>
             {% endif %}
+
           </div>
         </li>
       </ul>

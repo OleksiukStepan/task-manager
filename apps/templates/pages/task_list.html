@@ -1,27 +1,50 @@
+{# templates/task_manager/task_list.html #}
 {% extends "layouts/base.html" %}
 
-{% block title %} Transactions {% endblock %}
-
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
-
 {% block content %}
-  
+
   {% include "includes/breadcrumb_nav.html" %}
+
+  <!-- Filter and Sort Form -->
+  <form method="get" class="mb-3 d-flex flex-wrap gap-2">
+    <select name="task_type" class="form-select">
+      <option value="">All Task Types</option>
+      {% for type in task_types %}
+        <option value="{{ type.name }}" {% if request.GET.task_type == type.name %}selected{% endif %}>
+          {{ type.name }}
+        </option>
+      {% endfor %}
+    </select>
+
+    <select name="is_complete" class="form-select">
+      <option value="">All Statuses</option>
+      <option value="True" {% if request.GET.is_complete == 'True' %}selected{% endif %}>Completed</option>
+      <option value="False" {% if request.GET.is_complete == 'False' %}selected{% endif %}>Pending</option>
+    </select>
+
+    <select name="sort_by" class="form-select">
+      <option value="created_at" {% if request.GET.sort_by == 'created_at' %}selected{% endif %}>Sort by Created</option>
+      <option value="name" {% if request.GET.sort_by == 'name' %}selected{% endif %}>Sort by Name</option>
+      <option value="deadline" {% if request.GET.sort_by == 'deadline' %}selected{% endif %}>Sort by Deadline</option>
+      <option value="priority" {% if request.GET.sort_by == 'priority' %}selected{% endif %}>Sort by Priority</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary">Filter</button>
+  </form>
 
   <!-- All Tasks -->
   <div class="row">
-    <div class="col-12 col-xl-8">
+    <div class="col-12 col-xl-12">
       <div class="row">
         <div class="col-12 mb-4">
           <div class="card border-0 shadow">
             <div class="card-header">
               <div class="row align-items-center">
                 <div class="col">
-                  <h2 class="fs-5 fw-bold mb-0">Recent Tasks</h2>
+                  <h2 class="fs-5 fw-bold mb-0">All Tasks</h2>
                 </div>
                 <div class="col text-end">
-                  <a href="#" class="btn btn-sm btn-primary">See all</a>
+                  <a href="{% url 'task_list' %}" class="btn btn-sm btn-primary">See all</a>
                 </div>
               </div>
             </div>
@@ -30,9 +53,12 @@
                 <thead class="thead-light">
                 <tr>
                   <th class="border-bottom" scope="col">Name</th>
+                  <th class="border-bottom" scope="col">Description</th>
                   <th class="border-bottom" scope="col">Type</th>
                   <th class="border-bottom" scope="col">Deadline</th>
+                  <th class="border-bottom" scope="col">Created</th>
                   <th class="border-bottom" scope="col">Priority</th>
+                  <th class="border-bottom" scope="col">Done</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,21 +66,34 @@
                 {% for task in task_list %}
                   <tr>
                     <th class="text-gray-900" scope="row">
-                      {{ task.name }} {{ task_list.count }}
+                      {{ task.name }}
+                    </th>
+                    <th class="text-gray-900" scope="row">
+                      {{ task.description|truncatechars:30 }}
                     </th>
                     <td class="fw-bolder text-gray-500">
                       {{ task.task_type.name }}
                     </td>
                     <td class="fw-bolder text-gray-500">
-                      {{ task.deadline }}
+                      {{ task.deadline|date:"M d, Y" }}
+                    </td>
+                    <td class="fw-bolder text-gray-500">
+                      {{ task.created_at|date:"M d, Y H:i" }}
                     </td>
                     <td class="fw-bolder {{ task.priority|priority_class }}">
                       {{ task.get_priority_display }}
                     </td>
+                    <td class="fw-bolder">
+                      {% if task.is_complete %}
+                        <span class="badge bg-success">Completed</span>
+                      {% else %}
+                        <span class="badge bg-warning">Pending</span>
+                      {% endif %}
+                    </td>
                   </tr>
                 {% empty %}
                   <tr>
-                    <td colspan="4" class="text-center">No recent tasks available.</td>
+                    <td colspan="7" class="text-center">No tasks available.</td>
                   </tr>
                 {% endfor %}
                 </tbody>
@@ -62,14 +101,11 @@
             </div>
 
             {% include "includes/pagination.html" %}
-          
+
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-{% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% endblock content %}

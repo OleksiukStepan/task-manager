@@ -109,6 +109,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% load custom_filters %}
                 {% for task in recent_tasks %}
                   <tr>
                     <th class="text-gray-900" scope="row">
@@ -120,7 +121,7 @@
                     <td class="fw-bolder text-gray-500">
                       {{ task.deadline }}
                     </td>
-                    <td class="fw-bolder text-gray-500">
+                    <td class="fw-bolder {{ task.priority|priority_class }}">
                       {{ task.get_priority_display }}
                     </td>
                   </tr>

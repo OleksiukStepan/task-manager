@@ -14,3 +14,15 @@ def check_online_status(last_login):
         if last_login > online_threshold:
             return True
     return False
+
+
+@register.filter
+def priority_class(priority):
+    if priority == 1:
+        return 'text-danger'
+    elif priority == 2:
+        return 'text-warning'
+    elif priority == 3:
+        return 'text-info'
+    else:
+        return 'text-muted'

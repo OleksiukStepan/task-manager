@@ -20,6 +20,7 @@ class LoginForm(forms.Form):
                 "class": "form-control"
             }
         ))
+    remember_me = forms.BooleanField(required=False, label='Remember me')
 
 
 class SignUpForm(UserCreationForm):

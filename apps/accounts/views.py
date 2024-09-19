@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,12 +18,19 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
+            remember_me = form.cleaned_data.get('remember_me')
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
+                if remember_me:
+                    request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+                else:
+                    # Set session to expire in 7 days
+                    request.session.set_expiry(604800)
                 return redirect("/")
             else:
                 msg = 'Invalid credentials'
+
         else:
             msg = 'Error validating the form'
 
@@ -44,14 +52,13 @@ def register_user(request):
             username = form.cleaned_data.get("username")
             raw_password = form.cleaned_data.get("password1")
             user = authenticate(username=username, password=raw_password)
-
             msg = 'User created - please <a href="accounts:login">login</a>.'
             success = True
 
             return redirect("accounts/login/")
-
         else:
             msg = 'Form is not valid'
+
     else:
         form = SignUpForm()
 

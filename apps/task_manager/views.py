@@ -4,7 +4,7 @@ from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
-from apps.task_manager.models import Task, Worker
+from apps.task_manager.models import Task, Worker, TaskType
 
 
 # @login_required(login_url="/login/")
@@ -30,5 +30,20 @@ class TaskListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Task.objects.order_by('-created_at')
+        queryset = Task.objects.select_related('task_type')
+        sort_by = self.request.GET.get('sort_by', 'created_at')
+        sort_dir = self.request.GET.get('sort_dir', 'desc')
 
+        if sort_by in ['name', 'deadline', 'created_at', 'priority']:
+            order = f'-{sort_by}' if sort_dir == 'desc' else sort_by
+            queryset = queryset.order_by(order)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_sort_by'] = self.request.GET.get(
+            'sort_by', 'created_at'
+        )
+        context['current_sort_dir'] = self.request.GET.get('sort_dir', 'desc')
+        return context

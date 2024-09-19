@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from apps.task_manager.models import Task, Worker, TaskType
 
@@ -47,3 +47,13 @@ class TaskListView(ListView):
         )
         context['current_sort_dir'] = self.request.GET.get('sort_dir', 'desc')
         return context
+
+
+class MemberListView(ListView):
+    model = Worker
+
+
+class MemberDetailView(DetailView):
+    model = Worker
+    template_name = "pages/member_detail.html"
+    context_object_name = "worker"

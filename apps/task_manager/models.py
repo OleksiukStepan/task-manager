@@ -17,6 +17,9 @@ class Position(models.Model):
 
 
 class Worker(AbstractUser):
+    birthday = models.DateField(null=True, blank=True)
+    male = models.BooleanField(null=True, blank=True)
+    phone = models.CharField(max_length=20, unique=True, null=True, blank=True)
     position = models.ForeignKey(
         Position,
         on_delete=models.CASCADE,
@@ -47,7 +50,7 @@ class Task(models.Model):
     is_complete = models.BooleanField(default=False)
     priority = models.IntegerField(choices=CHOICES, default=3)
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
-    assignees = models.ManyToManyField(Worker, related_name="tasks")
+    assignees = models.ManyToManyField(Worker, null=True, related_name="tasks")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

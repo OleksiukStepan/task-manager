@@ -1,6 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 
 from apps.task_manager.models import Task, Worker
 
@@ -18,3 +20,12 @@ def index(request):
 
     html_template = loader.get_template("pages/index.html")
     return HttpResponse(html_template.render(context, request))
+
+
+# class TaskListView(LoginRequiredMixin, ListView):
+class TaskListView(ListView):
+    model = Task
+    template_name = "pages/task-list.html"
+    context_object_name = "task_list"
+    paginate_by = 10
+

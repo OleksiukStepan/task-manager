@@ -73,8 +73,12 @@
 
       {% include 'includes/navigation.html' %}
 
+      <div class="py-2">
+        {% include "includes/breadcrumb_nav.html" %}
+      </div>
+    
       {% block content %}{% endblock content %} 
-
+      
       {% include 'includes/footer.html' %}
 
     </main>

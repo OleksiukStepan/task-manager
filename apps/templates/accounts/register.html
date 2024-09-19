@@ -79,7 +79,11 @@
                   <!-- Terms and conditions -->
                   <div class="mb-4">
                     <div class="form-check">
-                      {{ form.agree_terms.errors }}
+                      {% if form.agree_terms.errors %}
+                        <div class="text-danger">
+                          {{ form.agree_terms.errors|first }}
+                        </div>
+                      {% endif %}
                       <input class="form-check-input" type="checkbox" id="agree_terms" name="agree_terms">
                       <label class="form-check-label fw-normal mb-0" for="agree_terms">
                         I agree to the <a href="#" class="fw-bold">terms and conditions</a>

@@ -15,13 +15,12 @@ urlpatterns = [
     path('login/', login_view, name="login"),
     path('register/', register_user, name="register"),
     path("logout/", LogoutView.as_view(), name="logout"),
-    path("reset-password/", ResetPassword.as_view(), name="reset-password"),
+    path("reset-password/", ResetPassword.as_view(), name="reset_password"),
     path(
         "terms-and-conditions/",
         terms_and_conditions,
         name="terms_and_conditions"
     ),
-
 ]
 
 app_name = "accounts"

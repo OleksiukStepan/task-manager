@@ -25,7 +25,10 @@ def index(request):
 # class TaskListView(LoginRequiredMixin, ListView):
 class TaskListView(ListView):
     model = Task
-    template_name = "pages/task-list.html"
+    template_name = "pages/task_list.html"
     context_object_name = "task_list"
     paginate_by = 10
+
+    def get_queryset(self):
+        return Task.objects.order_by('-created_at')
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
 
 
 class TaskType(models.Model):
@@ -37,6 +38,11 @@ class Worker(AbstractUser):
         verbose_name = "worker"
         verbose_name_plural = "workers"
 
+    def get_absolute_url(self):
+        return reverse(
+            "task_manager:member_detail", kwargs={"pk": self.id}
+        )
+
     def __str__(self):
         return f"{self.username} ({self.first_name} {self.last_name})"
 
@@ -50,7 +56,7 @@ class Task(models.Model):
     is_complete = models.BooleanField(default=False)
     priority = models.IntegerField(choices=CHOICES, default=3)
     task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
-    assignees = models.ManyToManyField(Worker, null=True, related_name="tasks")
+    assignees = models.ManyToManyField(Worker, related_name="tasks")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

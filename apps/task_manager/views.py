@@ -2,8 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, UpdateView
 
+from apps.task_manager.forms import MemberUpdateForm
 from apps.task_manager.models import Task, Worker, TaskType
 
 
@@ -57,3 +59,12 @@ class MemberDetailView(DetailView):
     model = Worker
     template_name = "pages/member_detail.html"
     context_object_name = "worker"
+
+
+class MemberUpdateView(UpdateView):
+    model = Worker
+    form_class = MemberUpdateForm
+    template_name = "pages/member_update.html"
+    success_url = reverse_lazy("taxi:driver-list")
+    context_object_name = "worker"
+

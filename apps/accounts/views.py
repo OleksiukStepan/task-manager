@@ -98,3 +98,7 @@ class ResetPassword(LoginRequiredMixin, PasswordChangeView):
             'id': 'new_password2'
         })
         return form
+
+
+def terms_and_conditions(request):
+    return render(request, 'accounts/terms_and_conditions.html')

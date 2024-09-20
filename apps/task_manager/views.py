@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
@@ -49,6 +50,22 @@ class TaskListView(ListView):
         )
         context['current_sort_dir'] = self.request.GET.get('sort_dir', 'desc')
         return context
+
+
+class TaskDetailView(DetailView):
+    model = Task
+    template_name = "pages/task_detail.html"
+
+    def post(self, request, *args, **kwargs):
+        task = self.get_object()
+        user = request.user
+
+        if "Add" in request.POST:
+            task.assignees.add(user)
+        elif "Delete" in request.POST:
+            task.assignees.remove(user)
+
+        return redirect("task_manager:task_detail", pk=task.id)
 
 
 class MemberListView(ListView):

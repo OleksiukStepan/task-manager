@@ -107,7 +107,7 @@
                       {{ task.id }}
                     </th>
                     <th class="text-gray-900" scope="row">
-                      {{ task.name }}
+                      <a href="{{ task.get_absolute_url }}">{{ task.name }}</a>
                     </th>
                     <td class="fw-bolder text-gray-500">
                       {{ task.task_type.name }}

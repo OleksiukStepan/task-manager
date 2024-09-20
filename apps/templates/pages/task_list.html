@@ -7,8 +7,6 @@
 
 {% block content %}
 
-  {% include "includes/breadcrumb_nav.html" %}
-
   <!-- All Tasks -->
   <div class="row">
     <div class="col-12 col-xl-12">
@@ -47,9 +45,6 @@
                       </svg>
                     </a>
                   </th>
-
-                  <!-- Description -->
-                  <th class="border-bottom" scope="col">Description</th>
 
                   <!-- Type -->
                   <th class="border-bottom" scope="col">Type</th>
@@ -114,9 +109,6 @@
                     <th class="text-gray-900" scope="row">
                       {{ task.name }}
                     </th>
-                    <td class="fw-bolder text-gray-500">
-                      {{ task.description|truncatechars:30 }}
-                    </td>
                     <td class="fw-bolder text-gray-500">
                       {{ task.task_type.name }}
                     </td>

@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, UpdateView
 
 from apps.task_manager.forms import MemberUpdateForm
@@ -65,6 +65,10 @@ class MemberUpdateView(UpdateView):
     model = Worker
     form_class = MemberUpdateForm
     template_name = "pages/member_update.html"
-    success_url = reverse_lazy("taxi:driver-list")
     context_object_name = "worker"
 
+    def get_success_url(self):
+        return reverse(
+            "task_manager:member_update",
+            kwargs={"pk": self.object.pk}
+        )

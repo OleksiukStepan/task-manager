@@ -131,12 +131,20 @@ class TaskDeleteView(DeleteView):
 
 class MemberListView(ListView):
     model = Worker
+    template_name = "pages/member_list.html"
+    context_object_name = 'workers'
+
+    def get_queryset(self):
+        return Worker.objects.prefetch_related("tasks")
 
 
 class MemberDetailView(DetailView):
     model = Worker
     template_name = "pages/member_detail.html"
     context_object_name = "worker"
+
+    def get_queryset(self):
+        return Worker.objects.prefetch_related("tasks")
 
 
 class MemberUpdateView(UpdateView):

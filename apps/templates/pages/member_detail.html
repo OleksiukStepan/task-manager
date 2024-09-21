@@ -86,7 +86,7 @@
 
                 <tbody>
                 {% load custom_filters %}
-                {% for task in user.tasks.all %}
+                {% for task in worker.tasks.all %}
                   <tr>
                     <th class="text-gray-900" scope="row">
                       {{ task.id }}

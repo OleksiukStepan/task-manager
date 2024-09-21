@@ -1,0 +1,83 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Team Members{% endblock %}
+
+{% block content %}
+  <div class="col-12 mb-4">
+    <div class="card border-0 shadow">
+      <div class="card-header">
+        <div class="row align-items-center">
+          <div class="col">
+            <h2 class="fs-5 fw-bold mb-0">Team Members</h2>
+          </div>
+          <div class="col text-end">
+            <a href="#" class="btn btn-sm btn-primary">Create Member</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table align-items-center table-flush">
+          <thead class="thead-light">
+          <tr>
+            <th class="border-bottom" scope="col">#</th>
+            <th class="border-bottom" scope="col">Photo</th>
+            <th class="border-bottom" scope="col">Name</th>
+            <th class="border-bottom" scope="col">Position</th>
+            <th class="border-bottom" scope="col">Status</th>
+            <th class="border-bottom" scope="col">Tasks</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for worker in workers %}
+            <tr>
+              <td>
+                {{ worker.id }}
+              </td>
+              <td>
+                <a href="#" class="avatar">
+                  <img class="rounded" alt="Profile Picture"
+                       src="/static/assets/img/team/profile-picture-{{ worker.id }}.jpg">
+                </a>
+              </td>
+              <th class="text-gray-900" scope="row">
+                <a href="#">{{ worker.username }}</a>
+              </th>
+              <td class="fw-bolder text-gray-500">
+                {% if worker.position %}
+                  {{ worker.position.name }}
+                {% else %}
+                  N/A
+                {% endif %}
+              </td>
+              <td class="fw-bolder">
+                {% load custom_filters %}
+                {% if worker.last_login|is_online %}
+                  <span class="badge bg-success">Online</span>
+                {% else %}
+                  <span class="badge bg-danger">Offline</span>
+                {% endif %}
+              </td>
+              <td class="fw-bolder text-gray-500">
+                {% if worker.tasks.all %}
+                  <ul class="list-unstyled mb-0">
+                    {% for task in worker.tasks.all %}
+                      <li><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></li>
+                    {% endfor %}
+                  </ul>
+                {% else %}
+                  <span class="text-muted">No tasks assigned</span>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" class="text-center text-muted">No team members available.</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

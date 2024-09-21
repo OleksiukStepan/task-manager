@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 from .forms import LoginForm, SignUpForm
 
@@ -70,7 +70,6 @@ def register_user(request):
 
 class ResetPassword(LoginRequiredMixin, PasswordChangeView):
     template_name = "accounts/reset_password.html"
-    success_url = reverse_lazy("accounts:login")
     form_class = PasswordChangeForm
 
     def form_valid(self, form):
@@ -98,6 +97,11 @@ class ResetPassword(LoginRequiredMixin, PasswordChangeView):
         })
         return form
 
+    def get_success_url(self):
+        return reverse(
+            "task_manager:member_update",
+            kwargs={"pk": self.object.pk}
+        )
 
 def terms_and_conditions(request):
     return render(request, 'accounts/terms_and_conditions.html')

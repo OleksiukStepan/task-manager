@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Settings {% endblock %}
+{% block title %} Member Detail {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -46,9 +46,6 @@
                     </a>
                   </th>
 
-                  <!-- Description -->
-                  <th class="border-bottom" scope="col">Description</th>
-
                   <!-- Type -->
                   <th class="border-bottom" scope="col">Type</th>
 
@@ -62,21 +59,6 @@
                               class="sorting-alternate-up"></path>
                         <path d="M12 4.5L18 10.5H6L12 4.5Z"
                               fill="{% if current_sort_by == 'deadline' and current_sort_dir == 'asc' %}currentColor{% else %}gray{% endif %}"
-                              class="sorting-alternate-up"></path>
-                      </svg>
-                    </a>
-                  </th>
-
-                  <!-- Created -->
-                  <th class="border-bottom" scope="col">
-                    <a href="?sort_by=created_at&sort_dir={% if current_sort_by == 'created_at' and current_sort_dir == 'desc' %}asc{% else %}desc{% endif %}">
-                      Created
-                      <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 19.5L6 13.5H18L12 19.5Z"
-                              fill="{% if current_sort_by == 'created_at' and current_sort_dir == 'desc' %}currentColor{% else %}gray{% endif %}"
-                              class="sorting-alternate-up"></path>
-                        <path d="M12 4.5L18 10.5H6L12 4.5Z"
-                              fill="{% if current_sort_by == 'created_at' and current_sort_dir == 'asc' %}currentColor{% else %}gray{% endif %}"
                               class="sorting-alternate-up"></path>
                       </svg>
                     </a>
@@ -104,25 +86,19 @@
 
                 <tbody>
                 {% load custom_filters %}
-                {% for task in task_list %}
+                {% for task in user.tasks.all %}
                   <tr>
                     <th class="text-gray-900" scope="row">
                       {{ task.id }}
                     </th>
                     <th class="text-gray-900" scope="row">
-                      {{ task.name }}
+                      <a href="{{ task.get_absolute_url }}">{{ task.name }}</a>
                     </th>
-                    <td class="fw-bolder text-gray-500">
-                      {{ task.description|truncatechars:30 }}
-                    </td>
                     <td class="fw-bolder text-gray-500">
                       {{ task.task_type.name }}
                     </td>
                     <td class="fw-bolder text-gray-500">
                       {{ task.deadline }}
-                    </td>
-                    <td class="fw-bolder text-gray-500">
-                      {{ task.created_at }}
                     </td>
                     <td class="fw-bolder {{ task.priority|priority_class }}">
                       {{ task.get_priority_display }}
@@ -160,7 +136,7 @@
           <div class="card shadow border-0 text-center p-0">
             <div class="profile-cover rounded-top" data-background="/static/assets/img/profile-cover.jpg"></div>
             <div class="card-body pb-5">
-              <img src="/static/assets/img/team/profile-picture-1.jpg"
+              <img src="/static/assets/img/team/profile-picture-2.jpg"
                    class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Member Portrait">
               <h4 class="h3">
                 {{ request.user.first_name }} {{ request.user.last_name }}
@@ -172,7 +148,7 @@
                 {{ request.user.email }}
               </p>
               
-              
+              <!-- Set Status Button -->
               <button class="btn btn-gray-800 d-inline-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
                 <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -213,6 +189,7 @@
               
               <!-- Update Info -->
               <a class="btn btn btn-secondary" href="{% url 'task_manager:member_update' pk=request.user.id %}">Update</a>
+{#              <a class="btn btn btn-secondary" href="{{ update_url }}">Update</a>#}
               
             </div>
           </div>

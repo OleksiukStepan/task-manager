@@ -83,9 +83,3 @@ class MemberUpdateView(UpdateView):
     form_class = MemberUpdateForm
     template_name = "pages/member_update.html"
     context_object_name = "worker"
-
-    def get_success_url(self):
-        return reverse(
-            "task_manager:member_update",
-            kwargs={"pk": self.object.pk}
-        )

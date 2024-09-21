@@ -1,12 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render, get_object_or_404
 from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, UpdateView
 
-from apps.task_manager.forms import MemberUpdateForm
+from apps.task_manager.forms import MemberUpdateForm, TaskTypeForm
 from apps.task_manager.models import Task, Worker, TaskType
 
 
@@ -14,15 +14,31 @@ from apps.task_manager.models import Task, Worker, TaskType
 def index(request):
     recent_tasks = Task.objects.order_by("-created_at")[:5]
     team_members = Worker.objects.all()[:5]
+    task_types = TaskType.objects.all()
+    form = TaskTypeForm()
+
+    # Handle adding a new task type
+    if request.method == "POST" and "name" in request.POST:
+        form = TaskTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("task_manager:home")
+
+    # Handle removing a task type
+    if request.method == "POST" and "remove_task_type" in request.POST:
+        task_type_id = request.POST.get("remove_task_type")
+        task_type = get_object_or_404(TaskType, pk=task_type_id)
+        task_type.delete()
+        return redirect("task_manager:home")
 
     context = {
         "segment": "index",
         "recent_tasks": recent_tasks,
         "team_members": team_members,
+        "task_types": task_types,
+        "form": form,
     }
-
-    html_template = loader.get_template("pages/index.html")
-    return HttpResponse(html_template.render(context, request))
+    return render(request, "pages/index.html", context)
 
 
 # class TaskListView(LoginRequiredMixin, ListView):
@@ -33,22 +49,20 @@ class TaskListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Task.objects.select_related('task_type')
-        sort_by = self.request.GET.get('sort_by', 'created_at')
-        sort_dir = self.request.GET.get('sort_dir', 'desc')
+        queryset = Task.objects.select_related("task_type")
+        sort_by = self.request.GET.get("sort_by", "created_at")
+        sort_dir = self.request.GET.get("sort_dir", "desc")
 
-        if sort_by in ['name', 'deadline', 'created_at', 'priority']:
-            order = f'-{sort_by}' if sort_dir == 'desc' else sort_by
+        if sort_by in ["name", "deadline", "created_at", "priority"]:
+            order = f"-{sort_by}" if sort_dir == "desc" else sort_by
             queryset = queryset.order_by(order)
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['current_sort_by'] = self.request.GET.get(
-            'sort_by', 'created_at'
-        )
-        context['current_sort_dir'] = self.request.GET.get('sort_dir', 'desc')
+        context["current_sort_by"] = self.request.GET.get("sort_by", "created_at")
+        context["current_sort_dir"] = self.request.GET.get("sort_dir", "desc")
         return context
 
 

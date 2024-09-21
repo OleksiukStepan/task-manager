@@ -19,10 +19,10 @@ def check_online_status(last_login):
 @register.filter
 def priority_class(priority):
     if priority == 1:
-        return 'text-danger'
+        return "text-danger"
     elif priority == 2:
-        return 'text-warning'
+        return "text-warning"
     elif priority == 3:
-        return 'text-info'
+        return "text-info"
     else:
-        return 'text-muted'
+        return "text-muted"

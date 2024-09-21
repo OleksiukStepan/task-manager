@@ -28,8 +28,18 @@ class WorkerAdmin(UserAdmin):
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
     search_fields = ("name",)
-    list_display = ("name", "deadline", "priority", "task_type",)
-    list_filter = ("deadline", "is_complete", "priority", "task_type",)
+    list_display = (
+        "name",
+        "deadline",
+        "priority",
+        "task_type",
+    )
+    list_filter = (
+        "deadline",
+        "is_complete",
+        "priority",
+        "task_type",
+    )
     filter_horizontal = ("assignees",)
 
 

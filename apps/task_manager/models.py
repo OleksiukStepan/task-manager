@@ -39,9 +39,7 @@ class Worker(AbstractUser):
         verbose_name_plural = "workers"
 
     def get_absolute_url(self):
-        return reverse(
-            "task_manager:member_detail", kwargs={"pk": self.id}
-        )
+        return reverse("task_manager:member_detail", kwargs={"pk": self.id})
 
     def __str__(self):
         return f"{self.username} ({self.first_name} {self.last_name})"
@@ -55,7 +53,9 @@ class Task(models.Model):
     deadline = models.DateField()
     is_complete = models.BooleanField(default=False)
     priority = models.IntegerField(choices=CHOICES, default=3)
-    task_type = models.ForeignKey(TaskType, on_delete=models.CASCADE)
+    task_type = models.ForeignKey(
+        TaskType, on_delete=models.SET_NULL, null=True, blank=True
+    )
     assignees = models.ManyToManyField(Worker, related_name="tasks")
     created_at = models.DateTimeField(auto_now_add=True)
 

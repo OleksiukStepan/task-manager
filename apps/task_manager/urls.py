@@ -6,6 +6,7 @@ from core import settings
 from .views import (
     index,
     TaskListView,
+    TaskCreateView,
     TaskDetailView,
     TaskUpdateView,
     TaskDeleteView,
@@ -25,6 +26,7 @@ urlpatterns = [
     path("members/<int:pk>/update/", MemberUpdateView.as_view(), name="member_update"),
     path("members/<int:pk>/delete/", MemberDeleteView.as_view(), name="member_delete"),
     path("tasks/", TaskListView.as_view(), name="task_list"),
+    path("tasks/create/", TaskCreateView.as_view(), name="task_create"),
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task_detail"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task_update"),
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task_delete"),

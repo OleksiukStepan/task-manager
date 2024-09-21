@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
@@ -91,7 +91,9 @@ class TaskListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_sort_by"] = self.request.GET.get("sort_by", "created_at")
+        context["current_sort_by"] = self.request.GET.get(
+            "sort_by", "created_at"
+        )
         context["current_sort_dir"] = self.request.GET.get("sort_dir", "desc")
         return context
 
@@ -110,6 +112,36 @@ class TaskDetailView(DetailView):
             task.assignees.remove(user)
 
         return redirect("task_manager:task_detail", pk=task.id)
+
+
+class TaskCreateView(CreateView):
+    model = Task
+    form_class = TaskForm
+    template_name = "pages/task_create.html"
+
+    def get(self, request, *args, **kwargs):
+        form = TaskForm()
+        workers = Worker.objects.all()
+        return render(
+            request, "pages/task_create.html",
+            {"form": form, "workers": workers}
+        )
+
+    def post(self, request, *args, **kwargs):
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save()
+            member_ids = request.POST.getlist("members")
+            members = Worker.objects.filter(id__in=member_ids)
+            task.assignees.set(members)
+            task.save()
+            return redirect("task_manager:task_list")
+
+        workers = Worker.objects.all()
+        return render(
+            request, "pages/task_create.html",
+            {"form": form, "workers": workers}
+        )
 
 
 class TaskUpdateView(UpdateView):

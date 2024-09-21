@@ -132,7 +132,7 @@
                   <th class="border-bottom" scope="col">Name</th>
                   <th class="border-bottom" scope="col">Position</th>
                   <th class="border-bottom" scope="col">Status</th>
-                  <th class="border-bottom" scope="col">Last Task</th>
+                  <th class="border-bottom" scope="col">Tasks</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -162,7 +162,15 @@
                       {% endif %}
                     </td>
                     <td class="fw-bolder text-gray-500">
-                      <a href="#">Last Task: ("Implement")</a>
+                      {% if worker.tasks.all %}
+                        <ul class="list-unstyled mb-0">
+                          {% for task in worker.tasks.all %}
+                            <li><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      {% else %}
+                        <span class="text-muted">No tasks assigned</span>
+                      {% endif %}
                     </td>
                   </tr>
                 {% endfor %}

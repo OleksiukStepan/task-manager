@@ -138,6 +138,7 @@ class MemberListView(ListView):
     model = Worker
     template_name = "pages/member_list.html"
     context_object_name = "workers"
+    paginate_by = 10
 
     def get_queryset(self):
         return Worker.objects.prefetch_related("tasks")

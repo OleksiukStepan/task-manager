@@ -11,6 +11,7 @@ from .views import (
     MemberListView,
     MemberDetailView,
     MemberUpdateView,
+    MemberDeleteView,
 )
 
 
@@ -19,6 +20,7 @@ urlpatterns = [
     path("members/", MemberListView.as_view(), name="member_list"),
     path("members/<int:pk>/", MemberDetailView.as_view(), name="member_detail"),
     path("members/<int:pk>/update/", MemberUpdateView.as_view(), name="member_update"),
+    path("members/<int:pk>/delete/", MemberDeleteView.as_view(), name="member_delete"),
     path("tasks/", TaskListView.as_view(), name="task_list"),
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task_detail"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task_update"),

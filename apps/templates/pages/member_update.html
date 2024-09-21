@@ -71,8 +71,15 @@
             </div>
           </div>
 
-          <!-- Save All Button -->
-          <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Save all</button>
+          <!-- Save All & Delete Profile Button -->
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Save all</button>
+
+            <a class="btn btn-danger mt-2 animate-up-2 ms-auto"
+               href="{% url 'task_manager:member_delete' pk=worker.pk %}">
+              Delete Profile
+            </a>
+          </div>
         </form>
       </div>
     </div>

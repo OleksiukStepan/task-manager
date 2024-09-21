@@ -144,3 +144,9 @@ class MemberUpdateView(UpdateView):
     form_class = MemberUpdateForm
     template_name = "pages/member_update.html"
     context_object_name = "worker"
+
+
+class MemberDeleteView(DeleteView):
+    model = Worker
+    success_url = reverse_lazy("task_manager:member_list")
+    template_name = "pages/member_delete.html"

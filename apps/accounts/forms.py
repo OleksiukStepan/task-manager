@@ -26,8 +26,7 @@ class SignUpForm(UserCreationForm):
         )
     )
     email = forms.EmailField(
-        widget=forms.EmailInput(
-            attrs={"placeholder": "Email", "class": "form-control"})
+        widget=forms.EmailInput(attrs={"placeholder": "Email", "class": "form-control"})
     )
     password1 = forms.CharField(
         widget=forms.PasswordInput(
@@ -43,8 +42,7 @@ class SignUpForm(UserCreationForm):
         required=True,
         label="I agree to the terms and conditions",
         error_messages={
-            "required":
-                "You must agree to the terms and conditions to register"
+            "required": "You must agree to the terms and conditions to register"
         },
         widget=forms.CheckboxInput(attrs={"class": "form-check-input"}),
     )

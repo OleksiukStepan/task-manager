@@ -18,7 +18,7 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get("username")
             password = form.cleaned_data.get("password")
-            remember_me = form.cleaned_data.get('remember_me')
+            remember_me = form.cleaned_data.get("remember_me")
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
@@ -29,16 +29,12 @@ def login_view(request):
                     request.session.set_expiry(604800)
                 return redirect("/")
             else:
-                msg = 'Invalid credentials'
+                msg = "Invalid credentials"
 
         else:
-            msg = 'Error validating the form'
+            msg = "Error validating the form"
 
-    return render(
-        request,
-        "accounts/login.html",
-        {"form": form, "msg": msg}
-    )
+    return render(request, "accounts/login.html", {"form": form, "msg": msg})
 
 
 def register_user(request):
@@ -56,7 +52,7 @@ def register_user(request):
 
             return redirect("accounts:login")
         else:
-            msg = 'Form is not valid'
+            msg = "Form is not valid"
 
     else:
         form = SignUpForm()
@@ -64,7 +60,7 @@ def register_user(request):
     return render(
         request,
         "accounts/register.html",
-        {"form": form, "msg": msg, "success": success}
+        {"form": form, "msg": msg, "success": success},
     )
 
 
@@ -73,35 +69,37 @@ class ResetPassword(LoginRequiredMixin, PasswordChangeView):
     form_class = PasswordChangeForm
 
     def form_valid(self, form):
-        messages.success(
-            self.request, "Your password was successfully changed!"
-        )
+        messages.success(self.request, "Your password was successfully changed!")
         return super().form_valid(form)
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.fields['old_password'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Current Password',
-            'id': 'old_password'
-        })
-        form.fields['new_password1'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'New Password',
-            'id': 'new_password1'
-        })
-        form.fields['new_password2'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Confirm New Password',
-            'id': 'new_password2'
-        })
+        form.fields["old_password"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "Current Password",
+                "id": "old_password",
+            }
+        )
+        form.fields["new_password1"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "New Password",
+                "id": "new_password1",
+            }
+        )
+        form.fields["new_password2"].widget.attrs.update(
+            {
+                "class": "form-control",
+                "placeholder": "Confirm New Password",
+                "id": "new_password2",
+            }
+        )
         return form
 
     def get_success_url(self):
-        return reverse(
-            "task_manager:member_update",
-            kwargs={"pk": self.object.pk}
-        )
+        return reverse("task_manager:member_update", kwargs={"pk": self.object.pk})
+
 
 def terms_and_conditions(request):
-    return render(request, 'accounts/terms_and_conditions.html')
+    return render(request, "accounts/terms_and_conditions.html")

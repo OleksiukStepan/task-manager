@@ -14,9 +14,9 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CORE_DIR = Path(__file__).parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -58,7 +58,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "core.urls"
 
-TEMPLATE_DIR = os.path.join(CORE_DIR, "apps/templates")  # ROOT dir for templates
+TEMPLATE_DIR = os.path.join(BASE_DIR, "apps/templates")
 
 TEMPLATES = [
     {
@@ -124,12 +124,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(CORE_DIR, "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = (
-    os.path.join(CORE_DIR, "apps/static"),
+    os.path.join(BASE_DIR, "apps/static"),
 )
 
 # Default primary key field type
@@ -143,4 +143,4 @@ LOGOUT_REDIRECT_URL = "/"
 
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = CORE_DIR / "media"
+MEDIA_ROOT = BASE_DIR / "media"

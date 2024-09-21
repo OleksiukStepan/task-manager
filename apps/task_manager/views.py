@@ -1,12 +1,17 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
-from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    UpdateView,
+    DeleteView,
+    CreateView,
+)
 
 from apps.task_manager.forms import (
+    MemberCreateForm,
     MemberUpdateForm,
     TaskTypeForm,
     PositionForm,
@@ -132,10 +137,17 @@ class TaskDeleteView(DeleteView):
 class MemberListView(ListView):
     model = Worker
     template_name = "pages/member_list.html"
-    context_object_name = 'workers'
+    context_object_name = "workers"
 
     def get_queryset(self):
         return Worker.objects.prefetch_related("tasks")
+
+
+class MemberCreateView(CreateView):
+    model = Worker
+    form_class = MemberCreateForm
+    template_name = "pages/member_create.html"
+    success_url = reverse_lazy("task_manager:member_list")
 
 
 class MemberDetailView(DetailView):

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
     # my apps
     "apps.task_manager",
-    # "apps.accounts"
+    "apps.accounts"
 ]
 
 MIDDLEWARE = [
@@ -124,12 +124,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(CORE_DIR, "staticfiles")
 
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = (
-    os.path.join(CORE_DIR, 'apps/static'),
+    os.path.join(CORE_DIR, "apps/static"),
 )
 
 # Default primary key field type
@@ -139,4 +139,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "task_manager.Worker"
 
-LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = "/"
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = CORE_DIR / "media"

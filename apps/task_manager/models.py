@@ -1,6 +1,9 @@
+import os
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.urls import reverse
+from django.utils import timezone
 
 
 class TaskType(models.Model):
@@ -17,21 +20,30 @@ class Position(models.Model):
         return self.name
 
 
+def user_directory_path(instance, filename):
+    ext = filename.split(".")[-1]
+    filename = (
+        f"{timezone.now().strftime('%Y%m%d%H%M%S')}_{instance.username}.{ext}"
+    )
+    return os.path.join("profile_images", filename)
+
+
 class Worker(AbstractUser):
     birthday = models.DateField(null=True, blank=True)
     male = models.BooleanField(null=True, blank=True)
     phone = models.CharField(max_length=20, unique=True, null=True, blank=True)
     position = models.ForeignKey(
         Position,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         null=True,
         blank=True,
     )
-    # profile_image = models.ImageField(
-    #     upload_to=worker_image_file_path,
-    #     blank=True,
-    #     null=True
-    # )
+    profile_image = models.ImageField(
+        upload_to=user_directory_path,
+        max_length=255,
+        blank=True,
+        null=True
+    )
 
     class Meta:
         ordering = ["first_name"]
@@ -39,7 +51,9 @@ class Worker(AbstractUser):
         verbose_name_plural = "workers"
 
     def get_absolute_url(self):
-        return reverse("task_manager:member_detail", kwargs={"pk": self.id})
+        return reverse(
+            "task_manager:member_detail", kwargs={"pk": self.id}
+        )
 
     def __str__(self):
         return f"{self.username} ({self.first_name} {self.last_name})"
@@ -60,7 +74,9 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def get_absolute_url(self):
-        return reverse("task_manager:task_detail", kwargs={"pk": self.id})
+        return reverse(
+            "task_manager:task_detail", kwargs={"pk": self.id}
+        )
 
     def __str__(self):
         return self.name

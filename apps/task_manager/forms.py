@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 
 from django import forms
@@ -6,9 +7,106 @@ from django.forms import TextInput, EmailInput, Select, DateInput
 from apps.task_manager.models import Worker, TaskType, Position, Task
 
 
-class MemberUpdateForm(forms.ModelForm):
+class MemberCreateForm(UserCreationForm):
+    profile_image = forms.ImageField(
+        required=False,
+        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
+        label="Profile Image"
+    )
+    password1 = forms.CharField(
+        label="Password",
+        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Password", "required": True})
+    )
+    password2 = forms.CharField(
+        label="Confirm Password",
+        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Confirm Password", "required": True})
+    )
+
     class Meta:
         model = Worker
+        fields = [
+            "username",
+            "password1",
+            "password2",
+            "first_name",
+            "last_name",
+            "birthday",
+            "male",
+            "email",
+            "phone",
+            "position",
+            "profile_image",
+        ]
+        widgets = {
+            "username": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Username",
+                    "required": True,
+                }
+            ),
+            # "password1": forms.PasswordInput(
+            #     attrs={
+            #         "class": "form-control",
+            #         "placeholder": "Password",
+            #         "required": True,
+            #     }
+            # ),
+            # "password2": forms.PasswordInput(
+            #     attrs={
+            #         "class": "form-control",
+            #         "placeholder": "Confirm Password",
+            #         "required": True,
+            #     }
+            # ),
+            "first_name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "First Name",
+                }
+            ),
+            "last_name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Last Name",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "name@company.com",
+                }
+            ),
+            "position": forms.Select(
+                attrs={
+                    "class": "form-select",
+                }
+            ),
+            "phone": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "+12-345 678 910",
+                }
+            ),
+            "birthday": forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "dd/mm/yyyy",
+                    "type": "date",
+                }
+            ),
+            "male": forms.Select(
+                attrs={
+                    "class": "form-select mb-0",
+                    "aria-label": "Gender select example",
+                },
+                choices=[(None, "Gender"), (False, "Female"), (True, "Male")],
+            ),
+        }
+
+
+class MemberUpdateForm(MemberCreateForm):
+    class Meta(MemberCreateForm.Meta):
         fields = [
             "first_name",
             "last_name",
@@ -18,51 +116,6 @@ class MemberUpdateForm(forms.ModelForm):
             "phone",
             "position",
         ]
-        widgets = {
-            "first_name": TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "First Name",
-                }
-            ),
-            "last_name": TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Last Name",
-                }
-            ),
-            "email": EmailInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "name@company.com",
-                }
-            ),
-            "position": Select(
-                attrs={
-                    "class": "form-select",
-                }
-            ),
-            "phone": TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "+12-345 678 910",
-                }
-            ),
-            "birthday": DateInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "dd/mm/yyyy",
-                    "type": "date",
-                }
-            ),
-            "male": Select(
-                attrs={
-                    "class": "form-select mb-0",
-                    "aria-label": "Gender select example",
-                },
-                choices=[(None, "Gender"), (False, "Female"), (True, "Male")],
-            ),
-        }
 
 
 class TaskForm(forms.ModelForm):

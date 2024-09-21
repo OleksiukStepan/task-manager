@@ -45,20 +45,6 @@ class MemberCreateForm(UserCreationForm):
                     "required": True,
                 }
             ),
-            # "password1": forms.PasswordInput(
-            #     attrs={
-            #         "class": "form-control",
-            #         "placeholder": "Password",
-            #         "required": True,
-            #     }
-            # ),
-            # "password2": forms.PasswordInput(
-            #     attrs={
-            #         "class": "form-control",
-            #         "placeholder": "Confirm Password",
-            #         "required": True,
-            #     }
-            # ),
             "first_name": forms.TextInput(
                 attrs={
                     "class": "form-control",
@@ -115,6 +101,7 @@ class MemberUpdateForm(MemberCreateForm):
             "email",
             "phone",
             "position",
+            "profile_image",
         ]
 
 

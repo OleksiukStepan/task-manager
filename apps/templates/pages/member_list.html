@@ -36,8 +36,11 @@
               </td>
               <td>
                 <a href="#" class="avatar">
-                  <img class="rounded" alt="Profile Picture"
-                       src="/static/assets/img/team/profile-picture-{{ worker.id }}.jpg">
+                  {% if worker.profile_image %}
+                    <img class="rounded" alt="Profile Picture" src="{{ worker.profile_image.url }}">
+                  {% else %}
+                    <img class="rounded" alt="Profile Picture" src="/media/profile_images/default_avatar.jpg">
+                  {% endif %}
                 </a>
               </td>
               <th class="text-gray-900" scope="row">

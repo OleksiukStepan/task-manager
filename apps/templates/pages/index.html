@@ -140,8 +140,11 @@
                   <tr>
                     <td>
                       <a href="#" class="avatar">
-                        <img class="rounded" alt="Image placeholder"
-                             src="/static/assets/img/team/profile-picture-2.jpg">
+                        {% if worker.profile_image %}
+                          <img class="rounded" alt="Image placeholder" src="{{ worker.profile_image.url }}">
+                        {% else %}
+                          <img class="rounded" alt="Image placeholder" src="/media/profile_images/default_avatar.jpg">
+                        {% endif %}
                       </a>
                     </td>
                     <th class="text-gray-900" scope="row">

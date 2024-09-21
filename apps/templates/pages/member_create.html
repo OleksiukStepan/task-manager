@@ -81,11 +81,9 @@
           </div>
 
           <div class="row" style="display: none;>
-            {#<div class="col-md-6 mb-3">#}
               {{ form.profile_image.label_tag }}
               {{ form.profile_image }}
               {{ form.profile_image.errors }}
-            {#</div>#}
           </div>
 
           <button class="btn btn-primary mt-2" type="submit">Create Member</button>
@@ -98,16 +96,14 @@
       <div class="row">
         <div class="col-12 mb-4">
           <div class="card shadow border-0 text-center p-0">
-            <div class="profile-cover rounded-top" data-background="/static/assets/img/profile-cover.jpg"></div>
+            <div class="profile-cover rounded-top" data-background="/media/profile-cover.jpg"></div>
             <div class="card-body pb-5">
-{#              <img src="/static/assets/img/team/profile-picture-2.jpg"#}
-{#                   class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Member Portrait">#}
-              <img id="avatar-preview" src="/static/assets/img/team/profile-picture-2.jpg"
+              <img id="avatar-preview" src="/media/profile_images/default_avatar.jpg"
                    class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Member Portrait">
               <h4 class="h3" id="preview_full_name"></h4>
               <h5 class="fw-normal" id="preview_username"></h5>
               <p class="text-gray mb-4" id="preview_email"></p>
-              <a class="btn btn-gray-800 mt-2 animate-up-2" id="change-photo-btn" href="#">Change Photo</a>
+              <a class="btn btn-gray-800 mt-2 animate-up-2" id="change-photo-btn">Add Photo</a>
             </div>
           </div>
         </div>
@@ -126,10 +122,9 @@
       document.getElementById('email_input').addEventListener('input', updateEmail);
 
       function updateUsername() {
-          const username = document.getElementById('username_input').value;
-          document.getElementById('preview_username').textContent = username;
+          document.getElementById('preview_username').textContent = document.getElementById('username_input').value;
       }
-      
+
       function updatePreview() {
           const firstName = document.getElementById('first_name_input').value;
           const lastName = document.getElementById('last_name_input').value;
@@ -137,28 +132,24 @@
       }
 
       function updateEmail() {
-          const email = document.getElementById('email_input').value;
-          document.getElementById('preview_email').textContent = email;
+          document.getElementById('preview_email').textContent = document.getElementById('email_input').value;
       }
 
-      // Get references to elements
       const changePhotoBtn = document.getElementById('change-photo-btn');
       const profileImageInput = document.getElementById('{{ form.profile_image.id_for_label }}');
       const avatarPreview = document.getElementById('avatar-preview');
 
-      // Trigger file input click when "Change Photo" button is clicked
       changePhotoBtn.addEventListener('click', function (event) {
-          event.preventDefault();  // Prevent the default action of the anchor tag
-          profileImageInput.click();  // Trigger the file input click
+          event.preventDefault();
+          profileImageInput.click();
       });
 
-      // Update the avatar preview when a new file is selected
       profileImageInput.addEventListener('change', function () {
           const file = this.files[0];
           if (file) {
               const reader = new FileReader();
               reader.onload = function (e) {
-                  avatarPreview.src = e.target.result;  // Update the avatar preview image
+                  avatarPreview.src = e.target.result;
               };
               reader.readAsDataURL(file);
           }

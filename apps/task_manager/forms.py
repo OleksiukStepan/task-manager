@@ -1,8 +1,9 @@
+from django.utils import timezone
+
 from django import forms
-from django.contrib.auth import get_user_model
 from django.forms import TextInput, EmailInput, Select, DateInput
 
-from apps.task_manager.models import Worker, TaskType, Position
+from apps.task_manager.models import Worker, TaskType, Position, Task
 
 
 class MemberUpdateForm(forms.ModelForm):
@@ -62,6 +63,53 @@ class MemberUpdateForm(forms.ModelForm):
                 choices=[(None, "Gender"), (False, "Female"), (True, "Male")],
             ),
         }
+
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = [
+            "name",
+            "description",
+            "deadline",
+            "priority",
+            "task_type",
+            "is_complete",
+        ]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={"class": "form-control",
+                       "placeholder": "Enter task name"}
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter task description",
+                    "rows": 3,
+                }
+            ),
+            "deadline": forms.DateInput(
+                attrs={"class": "form-control", "type": "date"}
+            ),
+            "priority": forms.Select(
+                attrs={
+                    "class": "form-control",
+                }
+            ),
+            "task_type": forms.Select(
+                attrs={
+                    "class": "form-control",
+                }
+            ),
+            "is_complete": forms.CheckboxInput(
+                attrs={"class": "form-check-input"}),
+        }
+
+    def clean_deadline(self):
+        deadline = self.cleaned_data.get("deadline")
+        if deadline and deadline < timezone.now().date():
+            raise forms.ValidationError("The deadline cannot be in the past")
+        return deadline
 
 
 class TaskTypeForm(forms.ModelForm):

@@ -4,12 +4,13 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.template import loader
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
 from apps.task_manager.forms import (
     MemberUpdateForm,
     TaskTypeForm,
     PositionForm,
+    TaskForm,
 )
 from apps.task_manager.models import Task, Worker, TaskType, Position
 
@@ -104,6 +105,28 @@ class TaskDetailView(DetailView):
             task.assignees.remove(user)
 
         return redirect("task_manager:task_detail", pk=task.id)
+
+
+class TaskUpdateView(UpdateView):
+    model = Task
+    form_class = TaskForm
+    template_name = "pages/task_update.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Update Task"
+        return context
+
+
+class TaskDeleteView(DeleteView):
+    model = Task
+    template_name = "pages/task_delete.html"
+    success_url = reverse_lazy("task_manager:task_list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Delete Task"
+        return context
 
 
 class MemberListView(ListView):

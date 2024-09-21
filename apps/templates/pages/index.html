@@ -59,10 +59,11 @@
     </div>
   </div>
 
-  <!-- Recent Tasks -->
   <div class="row">
     <div class="col-12 col-xl-8">
       <div class="row">
+
+        <!-- Recent Tasks -->
         <div class="col-12 mb-4">
           <div class="card border-0 shadow">
             <div class="card-header">
@@ -139,7 +140,8 @@
                   <tr>
                     <td>
                       <a href="#" class="avatar">
-                        <img class="rounded" alt="Image placeholder" src="/static/assets/img/team/profile-picture-2.jpg">
+                        <img class="rounded" alt="Image placeholder"
+                             src="/static/assets/img/team/profile-picture-2.jpg">
                       </a>
                     </td>
                     <th class="text-gray-900" scope="row">
@@ -169,82 +171,95 @@
       </div>
     </div>
 
-    <!-- Task Types -->
-    <div class="col-12 col-xxl-4 mb-4">
-      <div class="card border-0 shadow-sm rounded">
-        <div class="card-header border-bottom d-flex align-items-center justify-content-between bg-primary text-white">
-          <h2 class="fs-5 fw-bold mb-0">Task Types</h2>
-        </div>
-        <div class="card-body">
-          <!-- Form to Add Task Type -->
-          <form method="POST" action="{% url 'task_manager:home' %}" class="mb-3">
-            {% csrf_token %}
-            <div class="input-group">
-              {{ form.name }}
-              <button type="submit" class="btn btn-primary">Add</button>
-            </div>
-          </form>
+    <!-- Right Columns -->
 
-          <!-- List of Task Types -->
-          <ul class="list-group list-group-flush list my--3">
-            {% for task_type in task_types %}
-              <li class="list-group-item px-3 py-2 d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
+    <!-- Task Types -->
+    <div class="col-12 col-xxl-4">
+      <div class="mb-4">
+        <div class="card border-0 shadow-sm rounded">
+          <div
+              class="card-header border-bottom d-flex align-items-center justify-content-between bg-primary text-white">
+            <h2 class="fs-5 fw-bold mb-0">Task Types</h2>
+          </div>
+          <div class="card-body">
+            <!-- Form to Add Task Type -->
+            <form method="POST" action="{% url 'task_manager:home' %}" class="mb-3">
+              {% csrf_token %}
+              <div class="input-group">
+                {{ task_types_form.name }}
+                <input type="hidden" name="form_type" value="add_task_type">
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+
+            <!-- List of Task Types -->
+            <ul class="list-group list-group-flush list my--3">
+              {% for task_type in task_types %}
+                <li class="list-group-item px-3 py-2 d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
             <span class="badge bg-secondary rounded-circle me-3">
               <i class="bi bi-tag-fill text-white"></i>
             </span>
-                  <h4 class="h6 mb-0">
-                    {{ task_type.name }}
-                  </h4>
-                </div>
-                <!-- Remove Button -->
-                <form action="{% url 'task_manager:home' %}" method="POST" class="ms-auto">
-                  {% csrf_token %}
-                  <input type="hidden" name="remove_task_type" value="{{ task_type.id }}">
-                  <button type="submit" class="btn btn-sm btn-danger">Remove</button>
-                </form>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
-
-
-  </div>
-
-
-    {#    # Right panel#}
-    <div class="col-12 col-xl-4">
-      <div class="col-12 px-0 mb-4">
-        <div class="card border-0 shadow">
-          <div class="card-header d-flex flex-row align-items-center flex-0 border-bottom">
-            <div class="d-block">
-              <div class="h6 fw-normal text-gray mb-2">Total orders</div>
-              <h2 class="h3 fw-extrabold">452</h2>
-              <div class="small mt-2">
-                <span class="fas fa-angle-up text-success"></span>
-                <span class="text-success fw-bold">18.2%</span>
-              </div>
-            </div>
-            <div class="d-block ms-auto">
-              <div class="d-flex align-items-center text-end mb-2">
-                <span class="dot rounded-circle bg-gray-800 me-2"></span>
-                <span class="fw-normal small">July</span>
-              </div>
-              <div class="d-flex align-items-center text-end">
-                <span class="dot rounded-circle bg-secondary me-2"></span>
-                <span class="fw-normal small">August</span>
-              </div>
-            </div>
-          </div>
-          <div class="card-body p-2">
-            <div class="ct-chart-ranking ct-golden-section ct-series-a"></div>
+                    <h4 class="h6 mb-0">
+                      {{ task_type.name }}
+                    </h4>
+                  </div>
+                  <!-- Remove Button -->
+                  <form action="{% url 'task_manager:home' %}" method="POST" class="ms-auto">
+                    {% csrf_token %}
+                    <input type="hidden" name="remove_task_type" value="{{ task_type.id }}">
+                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                  </form>
+                </li>
+              {% endfor %}
+            </ul>
           </div>
         </div>
       </div>
-    </div>
 
+      <!-- Positions -->
+      <div class="mb-4">
+        <div class="card border-0 shadow-sm rounded">
+          <div
+              class="card-header border-bottom d-flex align-items-center justify-content-between bg-primary text-white">
+            <h2 class="fs-5 fw-bold mb-0">Positions</h2>
+          </div>
+          <div class="card-body">
+            <!-- Form to Add Position -->
+            <form method="POST" action="{% url 'task_manager:home' %}" class="mb-3">
+              {% csrf_token %}
+              <div class="input-group">
+                {{ position_form.name }}
+                <input type="hidden" name="form_type" value="add_position">
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+
+            <!-- List of Positions -->
+            <ul class="list-group list-group-flush list my--3">
+              {% for position in positions %}
+                <li class="list-group-item px-3 py-2 d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+            <span class="badge bg-secondary rounded-circle me-3">
+              <i class="bi bi-person-badge-fill text-white"></i>
+            </span>
+                    <h4 class="h6 mb-0">
+                      <a href="#" class="text-dark text-decoration-none">{{ position.name }}</a>
+                    </h4>
+                  </div>
+                  <!-- Remove Button -->
+                  <form action="{% url 'task_manager:home' %}" method="POST" class="ms-auto">
+                    {% csrf_token %}
+                    <input type="hidden" name="remove_position" value="{{ position.id }}">
+                    <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+                  </form>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 {% endblock content %}

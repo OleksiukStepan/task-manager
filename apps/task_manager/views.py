@@ -6,29 +6,51 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, UpdateView
 
-from apps.task_manager.forms import MemberUpdateForm, TaskTypeForm
-from apps.task_manager.models import Task, Worker, TaskType
+from apps.task_manager.forms import (
+    MemberUpdateForm,
+    TaskTypeForm,
+    PositionForm,
+)
+from apps.task_manager.models import Task, Worker, TaskType, Position
 
 
 # @login_required(login_url="/login/")
 def index(request):
-    recent_tasks = Task.objects.order_by("-created_at")[:5]
-    team_members = Worker.objects.all()[:5]
-    task_types = TaskType.objects.all()
-    form = TaskTypeForm()
+    recent_tasks = Task.objects.order_by("-created_at")[:10]
+    team_members = Worker.objects.all()[:10]
+    task_types = TaskType.objects.all().order_by("name")
+    positions = Position.objects.all().order_by("name")
+    task_types_form = TaskTypeForm()
+    position_form = PositionForm()
 
-    # Handle adding a new task type
-    if request.method == "POST" and "name" in request.POST:
-        form = TaskTypeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("task_manager:home")
+    # Handle form submissions based on form_type
+    if request.method == "POST":
+        form_type = request.POST.get("form_type")
 
-    # Handle removing a task type
-    if request.method == "POST" and "remove_task_type" in request.POST:
-        task_type_id = request.POST.get("remove_task_type")
-        task_type = get_object_or_404(TaskType, pk=task_type_id)
-        task_type.delete()
+        # Handle adding a new task type
+        if form_type == "add_task_type":
+            task_type_form = TaskTypeForm(request.POST)
+            if task_type_form.is_valid():
+                task_type_form.save()
+
+        # Handle adding a new position
+        elif form_type == "add_position":
+            position_form = PositionForm(request.POST)
+            if position_form.is_valid():
+                position_form.save()
+
+        # Handle removing a task type
+        elif "remove_task_type" in request.POST:
+            task_type_id = request.POST.get("remove_task_type")
+            task_type = get_object_or_404(TaskType, pk=task_type_id)
+            task_type.delete()
+
+        # Handle removing a position
+        elif "remove_position" in request.POST:
+            position_id = request.POST.get("remove_position")
+            position = get_object_or_404(Position, pk=position_id)
+            position.delete()
+
         return redirect("task_manager:home")
 
     context = {
@@ -36,7 +58,9 @@ def index(request):
         "recent_tasks": recent_tasks,
         "team_members": team_members,
         "task_types": task_types,
-        "form": form,
+        "positions": positions,
+        "task_types_form": task_types_form,
+        "position_form": position_form,
     }
     return render(request, "pages/index.html", context)
 

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.forms import TextInput, EmailInput, Select, DateInput
 
-from apps.task_manager.models import Worker, TaskType
+from apps.task_manager.models import Worker, TaskType, Position
 
 
 class MemberUpdateForm(forms.ModelForm):
@@ -73,6 +73,20 @@ class TaskTypeForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "placeholder": "Enter task type name",
+                }
+            )
+        }
+
+
+class PositionForm(forms.ModelForm):
+    class Meta:
+        model = Position
+        fields = ["name"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter position name",
                 }
             )
         }

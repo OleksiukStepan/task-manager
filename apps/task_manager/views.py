@@ -209,7 +209,7 @@ class MemberListView(ListView):
 
     def get_queryset(self):
         queryset = Worker.objects.select_related("position").prefetch_related("tasks")
-        sort_by = self.request.GET.get("sort_by", "name")
+        sort_by = self.request.GET.get("sort_by", "username")
         sort_dir = self.request.GET.get("sort_dir", "desc")
         form = SearchForm(self.request.GET)
 

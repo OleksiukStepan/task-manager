@@ -104,7 +104,7 @@
                 <div class="d-flex align-items-center">
                   <!-- Photo -->
                   <div class="me-3">
-                    <a href="#" class="avatar">
+                    <a href="{{ worker.get_absolute_url }}" class="avatar">
                       {% if worker.profile_image %}
                         <img class="rounded" alt="Profile Picture" src="{{ worker.profile_image.url }}">
                       {% else %}
@@ -116,7 +116,7 @@
                   <!-- Username and Status -->
                   <div>
                     <h6 class="mb-1">
-                      <a href="#">{{ worker.username }}</a>
+                      <a href="{{ worker.get_absolute_url }}">{{ worker.username }}</a>
                     </h6>
                     <small class="d-flex align-items-center">
                     <span

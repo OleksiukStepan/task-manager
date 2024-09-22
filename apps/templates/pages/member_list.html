@@ -23,14 +23,14 @@
             <th class="border-bottom" scope="col">#</th>
             <th class="border-bottom" scope="col">Photo</th>
             <th class="border-bottom" scope="col">
-              <a href="?sort_by=name&sort_dir={% if current_sort_by == 'name' and current_sort_dir == 'desc' %}asc{% else %}desc{% endif %}">
+              <a href="?sort_by=username&sort_dir={% if current_sort_by == 'username' and current_sort_dir == 'desc' %}asc{% else %}desc{% endif %}">
                 Name
                 <svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 19.5L6 13.5H18L12 19.5Z"
-                        fill="{% if current_sort_by == 'name' and current_sort_dir == 'desc' %}currentColor{% else %}gray{% endif %}"
+                        fill="{% if current_sort_by == 'username' and current_sort_dir == 'desc' %}currentColor{% else %}gray{% endif %}"
                         class="sorting-alternate-up"></path>
                   <path d="M12 4.5L18 10.5H6L12 4.5Z"
-                        fill="{% if current_sort_by == 'name' and current_sort_dir == 'asc' %}currentColor{% else %}gray{% endif %}"
+                        fill="{% if current_sort_by == 'username' and current_sort_dir == 'asc' %}currentColor{% else %}gray{% endif %}"
                         class="sorting-alternate-up"></path>
                 </svg>
               </a>
@@ -47,7 +47,7 @@
                 {{ worker.id }}
               </td>
               <td>
-                <a href="{% url 'task_manager:member_detail' pk=worker.id %}" class="avatar">
+                <a href="{{ worker.get_absolute_url }}" class="avatar">
                   {% if worker.profile_image %}
                     <img class="rounded" alt="Profile Picture" src="{{ worker.profile_image.url }}">
                   {% else %}
@@ -56,7 +56,7 @@
                 </a>
               </td>
               <th class="text-gray-900" scope="row">
-                <a href="{% url 'task_manager:member_detail' pk=worker.id %}">{{ worker }}</a>
+                <a href="{{ worker.get_absolute_url }}">{{ worker }}</a>
               </th>
               <td class="fw-bolder text-gray-500">
                 {% if worker.position %}
@@ -92,9 +92,9 @@
           </tbody>
         </table>
       </div>
-      
+
         {% include "includes/pagination.html" %}
-      
+
     </div>
   </div>
 {% endblock content %}

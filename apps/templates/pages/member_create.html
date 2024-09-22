@@ -19,18 +19,18 @@
               {{ form.username.errors }}
             </div>
             <div class="col-md-6 mb-3">
-              {{ form.first_name.label_tag }}
-              <input type="text" name="{{ form.first_name.name }}" class="form-control" id="first_name_input"
-                     placeholder="First Name" value="{{ form.first_name.value|default_if_none:'' }}">
-              {{ form.first_name.errors }}
+              {{ form.position.label_tag }}
+              {{ form.position }}
+              {{ form.position.errors }}
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-6 mb-3">
-              {{ form.password1.label_tag }}
-              {{ form.password1 }}
-              {{ form.password1.errors }}
+              {{ form.first_name.label_tag }}
+              <input type="text" name="{{ form.first_name.name }}" class="form-control" id="first_name_input"
+                     placeholder="First Name" value="{{ form.first_name.value|default_if_none:'' }}">
+              {{ form.first_name.errors }}
             </div>
             <div class="col-md-6 mb-3">
               {{ form.last_name.label_tag }}
@@ -42,14 +42,14 @@
 
           <div class="row">
             <div class="col-md-6 mb-3">
+              {{ form.password1.label_tag }}
+              {{ form.password1 }}
+              {{ form.password1.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
               {{ form.password2.label_tag }}
               {{ form.password2 }}
               {{ form.password2.errors }}
-            </div>
-            <div class="col-md-6 mb-3">
-              {{ form.position.label_tag }}
-              {{ form.position }}
-              {{ form.position.errors }}
             </div>
           </div>
 

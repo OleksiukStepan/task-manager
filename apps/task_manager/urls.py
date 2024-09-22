@@ -16,6 +16,11 @@ from .views import (
     MemberUpdateView,
     MemberDeleteView,
     set_worker_status,
+    add_tag,
+    add_task_type,
+    remove_task_type,
+    add_position,
+    remove_position,
 )
 
 
@@ -31,7 +36,12 @@ urlpatterns = [
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task_detail"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task_update"),
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task_delete"),
-    path('worker/<int:pk>/set_status/', set_worker_status, name='set_worker_status'),
+    path('worker/<int:pk>/set_status/', set_worker_status, name="set_worker_status"),
+    path("add-task-type/", add_task_type, name="add_task_type"),
+    path("remove-task-type/<int:task_type_id>/", remove_task_type, name="remove_task_type"),
+    path("add-position/", add_position, name="add_position"),
+    path("remove-position/<int:position_id>/", remove_position, name="remove_position"),
+    path("add-tag/", add_tag, name="add_tag"),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -81,3 +81,11 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    color = models.CharField(max_length=7, default="#FFFFFF")
+
+    def __str__(self):
+        return self.name

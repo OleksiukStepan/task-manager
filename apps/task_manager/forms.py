@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from django import forms
 
-from apps.task_manager.models import Worker, TaskType, Position, Task
+from apps.task_manager.models import Worker, TaskType, Position, Task, Tag
 
 
 class MemberCreateForm(UserCreationForm):
@@ -196,4 +196,13 @@ class PositionForm(forms.ModelForm):
                     "placeholder": "Enter position name",
                 }
             )
+        }
+
+
+class TagForm(forms.ModelForm):
+    class Meta:
+        model = Tag
+        fields = ["name", "color"]
+        widgets = {
+            "color": forms.TextInput(attrs={"type": "color"}),
         }

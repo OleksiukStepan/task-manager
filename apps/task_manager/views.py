@@ -18,59 +18,20 @@ from apps.task_manager.forms import (
     PositionForm,
     TaskTypeForm,
     TaskForm,
-    SearchForm,
+    SearchForm, TagForm,
 )
-from apps.task_manager.models import Task, Worker, TaskType, Position
+from apps.task_manager.models import Task, Worker, TaskType, Position, Tag
 
 
 # @login_required(login_url="/login/")
 def index(request):
-    recent_tasks = Task.objects.order_by("-created_at")[:10]
-    team_members = Worker.objects.all()[:10]
-    task_types = TaskType.objects.all().order_by("name")
-    positions = Position.objects.all().order_by("name")
-    task_types_form = TaskTypeForm()
-    position_form = PositionForm()
+    recent_tasks, team_members, task_types, positions, tags = fetch_data()
+    task_types_form, position_form, tag_form, search_form = initialize_forms(
+        request)
+
     search_term = request.GET.get("search", "")
-    search_form = SearchForm(initial={"search": search_term})
-
     if search_term:
-        recent_tasks = Task.objects.filter(name__icontains=search_term)
-        team_members = Worker.objects.filter(
-            Q(username__icontains=search_term)
-            | Q(first_name__icontains=search_term)
-            | Q(last_name__icontains=search_term)
-        )
-
-    # Handle form submissions based on form_type
-    if request.method == "POST":
-        form_type = request.POST.get("form_type")
-
-        # Handle adding a new task type
-        if form_type == "add_task_type":
-            task_type_form = TaskTypeForm(request.POST)
-            if task_type_form.is_valid():
-                task_type_form.save()
-
-        # Handle adding a new position
-        elif form_type == "add_position":
-            position_form = PositionForm(request.POST)
-            if position_form.is_valid():
-                position_form.save()
-
-        # Handle removing a task type
-        elif "remove_task_type" in request.POST:
-            task_type_id = request.POST.get("remove_task_type")
-            task_type = get_object_or_404(TaskType, pk=task_type_id)
-            task_type.delete()
-
-        # Handle removing a position
-        elif "remove_position" in request.POST:
-            position_id = request.POST.get("remove_position")
-            position = get_object_or_404(Position, pk=position_id)
-            position.delete()
-
-        return redirect("task_manager:home")
+        recent_tasks, team_members = search_tasks_and_members(search_term)
 
     context = {
         "segment": "index",
@@ -78,11 +39,80 @@ def index(request):
         "team_members": team_members,
         "task_types": task_types,
         "positions": positions,
+        "tags": tags,
         "task_types_form": task_types_form,
         "position_form": position_form,
         "search_form": search_form,
+        "tag_form": tag_form,
     }
     return render(request, "pages/index.html", context)
+
+
+def fetch_data():
+    """Fetches the data needed for the index page."""
+    recent_tasks = Task.objects.order_by("-created_at")[:10]
+    team_members = Worker.objects.all()[:10]
+    task_types = TaskType.objects.all().order_by("name")
+    positions = Position.objects.all().order_by("name")
+    tags = Tag.objects.all()
+    return recent_tasks, team_members, task_types, positions, tags
+
+
+def initialize_forms(request):
+    """Initializes the forms for task types, positions, and tags."""
+    task_types_form = TaskTypeForm()
+    position_form = PositionForm()
+    tag_form = TagForm()
+    search_term = request.GET.get("search", "")
+    search_form = SearchForm(initial={"search": search_term})
+    return task_types_form, position_form, tag_form, search_form
+
+
+def search_tasks_and_members(search_term):
+    """Handles search functionality for tasks and team members."""
+    recent_tasks = Task.objects.filter(name__icontains=search_term)
+    team_members = Worker.objects.filter(
+        Q(username__icontains=search_term)
+        | Q(first_name__icontains=search_term)
+        | Q(last_name__icontains=search_term)
+    )
+    return recent_tasks, team_members
+
+
+def add_task_type(request):
+    if request.method == "POST":
+        form = TaskTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return redirect("task_manager:home")
+
+
+def remove_task_type(request, task_type_id):
+    task_type = get_object_or_404(TaskType, pk=task_type_id)
+    task_type.delete()
+    return redirect("task_manager:home")
+
+
+def add_position(request):
+    if request.method == "POST":
+        form = PositionForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return redirect("task_manager:home")
+
+
+def remove_position(request, position_id):
+    position = get_object_or_404(Position, pk=position_id)
+    position.delete()
+    return redirect("task_manager:home")
+
+
+def add_tag(request):
+    if request.method == "POST":
+        form = TagForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return redirect("task_manager:home")
 
 
 # @login_required
@@ -91,7 +121,8 @@ def set_worker_status(request, pk):
     status = request.GET.get("status", "offline")
     worker.is_online = True if status == "online" else False
     worker.save(update_fields=['is_online'])
-    messages.success(request, f"Worker status set to {'Online' if worker.is_online else 'Offline'}.")
+    messages.success(request,
+                     f"Worker status set to {'Online' if worker.is_online else 'Offline'}.")
 
     return redirect(request.META.get("HTTP_REFERER", "index"))
 
@@ -208,7 +239,8 @@ class MemberListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Worker.objects.select_related("position").prefetch_related("tasks")
+        queryset = Worker.objects.select_related("position").prefetch_related(
+            "tasks")
         sort_by = self.request.GET.get("sort_by", "username")
         sort_dir = self.request.GET.get("sort_dir", "desc")
         form = SearchForm(self.request.GET)

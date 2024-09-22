@@ -7,10 +7,111 @@
 
 {% block content %}
 
-  <!-- All Tasks -->
   <div class="row">
     <div class="col-12 col-xl-8">
       <div class="row">
+
+        <!-- Member Details Card -->
+        <div class="col-12 mb-4">
+          <div class="card border-0 shadow">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h2 class="fs-5 fw-bold mb-0">Member Details</h2>
+              <a href="{% url 'task_manager:member_update' pk=worker.id %}" class="btn btn-sm btn-secondary">Update </a>
+            </div>
+            <div class="card-body text-center">
+
+              <!-- Large Profile Picture -->
+              <div class="mb-4">
+                {% if worker.profile_image %}
+                  <img class="rounded-circle" src="{{ worker.profile_image.url }}" alt="Profile Picture" width="180" height="180">
+                {% else %}
+                  <img class="rounded-circle" src="/media/profile_images/default_avatar.jpg" alt="Default Avatar" width="180" height="180">
+                {% endif %}
+              </div>
+
+              <!-- Member Information Grid -->
+              <div class="row">
+
+                <!-- ID -->
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex justify-content-between border-bottom pb-2">
+                    <strong>ID:</strong>
+                    <span class="text-gray-500">{{ worker.id }}</span>
+                  </div>
+                </div>
+
+                <!-- Username -->
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex justify-content-between border-bottom pb-2">
+                    <strong>Username:</strong>
+                    <span class="text-gray-500">{{ worker.username }}</span>
+                  </div>
+                </div>
+
+                <!-- First Name -->
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex justify-content-between border-bottom pb-2">
+                    <strong>First Name:</strong>
+                    <span class="text-gray-500">{{ worker.first_name }}</span>
+                  </div>
+                </div>
+
+                <!-- Last Name -->
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex justify-content-between border-bottom pb-2">
+                    <strong>Last Name:</strong>
+                    <span class="text-gray-500">{{ worker.last_name }}</span>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex justify-content-between border-bottom pb-2">
+                    <strong>Email:</strong>
+                    <span class="text-gray-500">{{ worker.email }}</span>
+                  </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex justify-content-between border-bottom pb-2">
+                    <strong>Phone:</strong>
+                    <span class="text-gray-500">{{ worker.phone }}</span>
+                  </div>
+                </div>
+
+                <!-- Birthday -->
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex justify-content-between border-bottom pb-2">
+                    <strong>Birthday:</strong>
+                    <span class="text-gray-500">{{ worker.birthday|date:"F d, Y" }}</span>
+                  </div>
+                </div>
+
+                <!-- Gender -->
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex justify-content-between border-bottom pb-2">
+                    <strong>Gender:</strong>
+                    <span class="text-gray-500">{% if worker.male %}Male{% else %}Female{% endif %}</span>
+                  </div>
+                </div>
+
+                <!-- Position -->
+                <div class="col-md-6 mb-3">
+                  <div class="d-flex justify-content-between border-bottom pb-2">
+                    <strong>Position:</strong>
+                    <span class="text-gray-500">{{ worker.position.name }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <!-- All Tasks -->
         <div class="col-12 mb-4">
           <div class="card border-0 shadow">
             <div class="card-header">
@@ -128,8 +229,8 @@
         </div>
       </div>
     </div>
-  
-  <!-- Profile Info -->
+
+    <!-- Profile Info -->
     <div class="col-12 col-xl-4">
       <div class="row">
         <div class="col-12 mb-4">
@@ -137,9 +238,11 @@
             <div class="profile-cover rounded-top" data-background="/media/profile-cover.jpg"></div>
             <div class="card-body pb-5">
               {% if worker.profile_image %}
-                <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture" src="{{ worker.profile_image.url }}">
+                <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
+                     src="{{ worker.profile_image.url }}">
               {% else %}
-                <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture" src="/media/profile_images/default_avatar.jpg">
+                <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
+                     src="/media/profile_images/default_avatar.jpg">
               {% endif %}
               <h4 class="h3">
                 {{ request.user.first_name }} {{ request.user.last_name }}
@@ -150,18 +253,21 @@
               <p class="text-gray mb-4">
                 {{ request.user.email }}
               </p>
-              
+
               <!-- Set Status Button -->
-              <button class="btn btn-gray-800 d-inline-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown"
+              <button class="btn btn-gray-800 d-inline-flex align-items-center dropdown-toggle"
+                      data-bs-toggle="dropdown"
                       aria-haspopup="true" aria-expanded="false">
-                <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
                   <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
                   <path fill-rule="evenodd"
                         d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
                         clip-rule="evenodd"></path>
                 </svg>
                 Set Status
-                <svg class="icon icon-xs ms-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <svg class="icon icon-xs ms-1" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd"
                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                         clip-rule="evenodd"></path>
@@ -189,10 +295,11 @@
                   Offline
                 </a>
               </div>
-              
+
               <!-- Update Info -->
-              <a class="btn btn btn-secondary" href="{% url 'task_manager:member_update' pk=request.user.id %}">Update</a>
-              
+              <a class="btn btn btn-secondary"
+                 href="{% url 'task_manager:member_update' pk=request.user.id %}">Update</a>
+
             </div>
           </div>
         </div>

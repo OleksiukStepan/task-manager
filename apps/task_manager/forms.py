@@ -2,7 +2,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 
 from django import forms
-from django.forms import TextInput, EmailInput, Select, DateInput
 
 from apps.task_manager.models import Worker, TaskType, Position, Task
 
@@ -171,6 +170,19 @@ class TaskTypeForm(forms.ModelForm):
                 }
             )
         }
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(
+        max_length=255,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search",
+            }
+        ),
+    )
 
 
 class PositionForm(forms.ModelForm):

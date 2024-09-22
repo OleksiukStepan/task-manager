@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -13,9 +14,10 @@ from django.views.generic import (
 from apps.task_manager.forms import (
     MemberCreateForm,
     MemberUpdateForm,
-    TaskTypeForm,
     PositionForm,
+    TaskTypeForm,
     TaskForm,
+    SearchForm,
 )
 from apps.task_manager.models import Task, Worker, TaskType, Position
 
@@ -28,6 +30,16 @@ def index(request):
     positions = Position.objects.all().order_by("name")
     task_types_form = TaskTypeForm()
     position_form = PositionForm()
+    search_term = request.GET.get("search", "")
+    search_form = SearchForm(initial={"search": search_term})
+
+    if search_term:
+        recent_tasks = Task.objects.filter(name__icontains=search_term)
+        team_members = Worker.objects.filter(
+            Q(username__icontains=search_term)
+            | Q(first_name__icontains=search_term)
+            | Q(last_name__icontains=search_term)
+        )
 
     # Handle form submissions based on form_type
     if request.method == "POST":
@@ -67,6 +79,7 @@ def index(request):
         "positions": positions,
         "task_types_form": task_types_form,
         "position_form": position_form,
+        "search_form": search_form,
     }
     return render(request, "pages/index.html", context)
 
@@ -82,10 +95,16 @@ class TaskListView(ListView):
         queryset = Task.objects.select_related("task_type")
         sort_by = self.request.GET.get("sort_by", "created_at")
         sort_dir = self.request.GET.get("sort_dir", "desc")
+        form = SearchForm(self.request.GET)
 
         if sort_by in ["name", "deadline", "created_at", "priority"]:
             order = f"-{sort_by}" if sort_dir == "desc" else sort_by
             queryset = queryset.order_by(order)
+
+        if form.is_valid() and form.cleaned_data.get("search"):
+            queryset = queryset.filter(
+                name__icontains=form.cleaned_data["search"]
+            )
 
         return queryset
 
@@ -95,6 +114,10 @@ class TaskListView(ListView):
             "sort_by", "created_at"
         )
         context["current_sort_dir"] = self.request.GET.get("sort_dir", "desc")
+        search_term = self.request.GET.get("search", "")
+        context["search_form"] = SearchForm(
+            initial={"search": search_term}
+        )
         return context
 
 
@@ -173,7 +196,35 @@ class MemberListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Worker.objects.prefetch_related("tasks")
+        queryset = Worker.objects.select_related("position").prefetch_related("tasks")
+        sort_by = self.request.GET.get("sort_by", "name")
+        sort_dir = self.request.GET.get("sort_dir", "desc")
+        form = SearchForm(self.request.GET)
+
+        if sort_by in ["username"]:
+            order = f"-{sort_by}" if sort_dir == "desc" else sort_by
+            queryset = queryset.order_by(order)
+
+        if form.is_valid() and form.cleaned_data.get("search"):
+            search_term = form.cleaned_data["search"]
+            queryset = queryset.filter(
+                Q(username__icontains=search_term)
+                | Q(first_name__icontains=search_term)
+                | Q(last_name__icontains=search_term)
+            )
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["current_sort_by"] = self.request.GET.get("sort_by", "name")
+        context["current_sort_dir"] = self.request.GET.get("sort_dir", "desc")
+        name = self.request.GET.get("name", "")
+        search_term = self.request.GET.get("search", "")
+        context["search_form"] = SearchForm(
+            initial={"search": search_term}
+        )
+        return context
 
 
 class MemberCreateView(CreateView):

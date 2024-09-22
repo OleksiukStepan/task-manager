@@ -158,20 +158,6 @@ class TaskForm(forms.ModelForm):
         return deadline
 
 
-class TaskTypeForm(forms.ModelForm):
-    class Meta:
-        model = TaskType
-        fields = ["name"]
-        widgets = {
-            "name": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Enter task type name",
-                }
-            )
-        }
-
-
 class SearchForm(forms.Form):
     search = forms.CharField(
         max_length=255,
@@ -185,6 +171,20 @@ class SearchForm(forms.Form):
     )
 
 
+class TaskTypeForm(forms.ModelForm):
+    class Meta:
+        model = TaskType
+        fields = ["name"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control mb-2",
+                    "placeholder": "Enter task type name",
+                }
+            )
+        }
+
+
 class PositionForm(forms.ModelForm):
     class Meta:
         model = Position
@@ -192,7 +192,7 @@ class PositionForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(
                 attrs={
-                    "class": "form-control",
+                    "class": "form-control mb-2",
                     "placeholder": "Enter position name",
                 }
             )
@@ -204,5 +204,17 @@ class TagForm(forms.ModelForm):
         model = Tag
         fields = ["name", "color"]
         widgets = {
-            "color": forms.TextInput(attrs={"type": "color"}),
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control mb-2",
+                    "placeholder": "Enter position name",
+                }
+            ),
+            "color": forms.TextInput(
+                attrs={
+                    "class": "form-control mb-2",
+                    "placeholder": "Enter tag color",
+                    "type": "color"
+                }
+            ),
         }

@@ -84,7 +84,7 @@ def add_task_type(request):
         form = TaskTypeForm(request.POST)
         if form.is_valid():
             form.save()
-    return redirect("task_manager:home")
+    return redirect('task_manager:home')
 
 
 def remove_task_type(request, task_type_id):
@@ -121,8 +121,13 @@ def set_worker_status(request, pk):
     status = request.GET.get("status", "offline")
     worker.is_online = True if status == "online" else False
     worker.save(update_fields=['is_online'])
-    messages.success(request,
-                     f"Worker status set to {'Online' if worker.is_online else 'Offline'}.")
+    messages.success(
+        request,
+        (
+            f"Worker status set to "
+            f"{'Online' if worker.is_online else 'Offline'}."
+        )
+    )
 
     return redirect(request.META.get("HTTP_REFERER", "index"))
 

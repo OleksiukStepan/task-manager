@@ -43,6 +43,7 @@ urlpatterns = [
     path("remove-position/<int:position_id>/", remove_position, name="remove_position"),
     path("add-tag/", add_tag, name="add_tag"),
 
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 app_name = "task_manager"

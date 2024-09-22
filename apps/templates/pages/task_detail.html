@@ -120,8 +120,8 @@
                     </h6>
                     <small class="d-flex align-items-center">
                     <span
-                        class="dot rounded-circle me-1 {% if worker.last_login|is_online %}bg-success{% else %}bg-danger{% endif %}"></span>
-                      {{ worker.last_login|is_online|yesno:"Online,Offline" }}
+                        class="dot rounded-circle me-1 {% if worker.is_online %}bg-success{% else %}bg-danger{% endif %}"></span>
+                      {{ worker.is_online|yesno:"Online,Offline" }}
                     </small>
                   </div>
                 </div>

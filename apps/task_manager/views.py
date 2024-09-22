@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import redirect, render, get_object_or_404
@@ -82,6 +83,17 @@ def index(request):
         "search_form": search_form,
     }
     return render(request, "pages/index.html", context)
+
+
+# @login_required
+def set_worker_status(request, pk):
+    worker = get_object_or_404(Worker, pk=pk)
+    status = request.GET.get("status", "offline")
+    worker.is_online = True if status == "online" else False
+    worker.save(update_fields=['is_online'])
+    messages.success(request, f"Worker status set to {'Online' if worker.is_online else 'Offline'}.")
+
+    return redirect(request.META.get("HTTP_REFERER", "index"))
 
 
 # class TaskListView(LoginRequiredMixin, ListView):

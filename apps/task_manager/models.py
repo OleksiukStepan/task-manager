@@ -32,6 +32,7 @@ class Worker(AbstractUser):
     birthday = models.DateField(null=True, blank=True)
     male = models.BooleanField(null=True, blank=True)
     phone = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    is_online = models.BooleanField(default=False)
     position = models.ForeignKey(
         Position,
         on_delete=models.SET_NULL,

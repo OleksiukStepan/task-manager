@@ -103,8 +103,7 @@
                       {{ worker.position.name }}
                     </td>
                     <td class="fw-bolder">
-                      {% load custom_filters %}
-                      {% if worker.last_login|is_online %}
+                      {% if worker.is_online %}
                         <span class="badge bg-success">Online</span>
                       {% else %}
                         <span class="badge bg-danger">Offline</span>

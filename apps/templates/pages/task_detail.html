@@ -11,7 +11,7 @@
 
   <!-- Task Name & Description -->
   <div class="row">
-    <div class="col-12 mb-4">
+    <div class="col-12 col-xl-8 mb-4">
       <div class="card border-0 shadow-lg">
         <div class="card-header bg-light text-black">
           <div class="row align-items-center">
@@ -30,10 +30,9 @@
                 Delete Task
               </a>
             </div>
-            
           </div>
         </div>
-      
+
         <div class="card-body">
           <div class="row">
             <div class="col-md-6">
@@ -77,61 +76,61 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="col-12 col-xxl-6 mb-4">
-    <div class="card border-0 shadow">
-      <div class="card-header border-bottom d-flex align-items-center justify-content-between">
-        <h2 class="fs-5 fw-bold mb-0">Assignees</h2>
-        {% if user.is_authenticated %}
-          <form action="{% url 'task_manager:task_detail' pk=task.id %}" method="post">
-            {% csrf_token %}
-            {% if user in task.assignees.all %}
-              <button type="submit" name="Delete" class="btn btn-danger">
-                Detach Me from This Task
-              </button>
-            {% else %}
-              <button type="submit" name="Add" class="btn btn-secondary">
-                Assign me to this task
-              </button>
-            {% endif %}
-          </form>
-        {% endif %}
-      </div>
+    <div class="col-12 col-xl-4 mb-4">
+      <div class="card border-0 shadow">
+        <div class="card-header border-bottom d-flex align-items-center justify-content-between">
+          <h2 class="fs-5 fw-bold mb-0">Assignees</h2>
+          {% if user.is_authenticated %}
+            <form action="{% url 'task_manager:task_detail' pk=task.id %}" method="post">
+              {% csrf_token %}
+              {% if user in task.assignees.all %}
+                <button type="submit" name="Delete" class="btn btn-danger">
+                  Detach Me from This Task
+                </button>
+              {% else %}
+                <button type="submit" name="Add" class="btn btn-secondary">
+                  Assign me to this task
+                </button>
+              {% endif %}
+            </form>
+          {% endif %}
+        </div>
 
-      <div class="card-body">
-        <ul class="list-group list-group-flush">
-          {% for worker in task.assignees.all %}
-            <li class="list-group-item">
-              <div class="d-flex align-items-center">
-                <!-- Photo -->
-                <div class="me-3">
-                  <a href="#" class="avatar">
-                    {% if worker.profile_image %}
-                      <img class="rounded" alt="Profile Picture" src="{{ worker.profile_image.url }}">
-                    {% else %}
-                      <img class="rounded" alt="Profile Picture" src="/media/profile_images/default_avatar.jpg">
-                    {% endif %}
-                  </a>
-                </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            {% for worker in task.assignees.all %}
+              <li class="list-group-item">
+                <div class="d-flex align-items-center">
+                  <!-- Photo -->
+                  <div class="me-3">
+                    <a href="#" class="avatar">
+                      {% if worker.profile_image %}
+                        <img class="rounded" alt="Profile Picture" src="{{ worker.profile_image.url }}">
+                      {% else %}
+                        <img class="rounded" alt="Profile Picture" src="/media/profile_images/default_avatar.jpg">
+                      {% endif %}
+                    </a>
+                  </div>
 
-                <!-- Username and Status -->
-                <div>
-                  <h6 class="mb-1">
-                    <a href="#">{{ worker.username }}</a>
-                  </h6>
-                  <small class="d-flex align-items-center">
+                  <!-- Username and Status -->
+                  <div>
+                    <h6 class="mb-1">
+                      <a href="#">{{ worker.username }}</a>
+                    </h6>
+                    <small class="d-flex align-items-center">
                     <span
                         class="dot rounded-circle me-1 {% if worker.last_login|is_online %}bg-success{% else %}bg-danger{% endif %}"></span>
-                    {{ worker.last_login|is_online|yesno:"Online,Offline" }}
-                  </small>
+                      {{ worker.last_login|is_online|yesno:"Online,Offline" }}
+                    </small>
+                  </div>
                 </div>
-              </div>
-            </li>
-          {% empty %}
-            <li class="list-group-item text-muted">No team members assigned</li>
-          {% endfor %}
-        </ul>
+              </li>
+            {% empty %}
+              <li class="list-group-item text-muted">No team members assigned</li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
     </div>
   </div>

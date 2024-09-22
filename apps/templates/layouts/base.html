@@ -65,11 +65,11 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     {% include 'includes/sidebar.html' %}
     
-    <main class="content">
+    <main class="content flex-fill d-flex flex-column">
 
       {% include 'includes/navigation.html' %}
 
@@ -77,8 +77,10 @@
         {% include "includes/breadcrumb_nav.html" %}
       </div>
     
-      {% block content %}{% endblock content %} 
-      
+      <div class="flex-fill">
+      {% block content %}{% endblock content %}
+      </div>
+    
       {% include 'includes/footer.html' %}
 
     </main>

@@ -35,7 +35,7 @@
                 {{ worker.id }}
               </td>
               <td>
-                <a href="#" class="avatar">
+                <a href="{% url 'task_manager:member_detail' pk=worker.id %}" class="avatar">
                   {% if worker.profile_image %}
                     <img class="rounded" alt="Profile Picture" src="{{ worker.profile_image.url }}">
                   {% else %}
@@ -44,7 +44,7 @@
                 </a>
               </td>
               <th class="text-gray-900" scope="row">
-                <a href="#">{{ worker.username }}</a>
+                <a href="{% url 'task_manager:member_detail' pk=worker.id %}">{{ worker.username }}</a>
               </th>
               <td class="fw-bolder text-gray-500">
                 {% if worker.position %}

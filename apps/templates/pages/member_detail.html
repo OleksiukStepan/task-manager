@@ -237,9 +237,9 @@
           <div class="card shadow border-0 text-center p-0">
             <div class="profile-cover rounded-top" data-background="/media/profile-cover.jpg"></div>
             <div class="card-body pb-5">
-              {% if worker.profile_image %}
+              {% if request.user.profile_image %}
                 <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
-                     src="{{ worker.profile_image.url }}">
+                     src="{{ request.user.profile_image.url }}">
               {% else %}
                 <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
                      src="/media/profile_images/default_avatar.jpg">

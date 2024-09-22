@@ -91,16 +91,23 @@ class MemberCreateForm(UserCreationForm):
         }
 
 
-class MemberUpdateForm(MemberCreateForm):
+class MemberUpdateForm(forms.ModelForm):
+    profile_image = forms.ImageField(
+        required=False,
+        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
+        label="Profile Image"
+    )
+
     class Meta(MemberCreateForm.Meta):
         fields = [
+            "username",
             "first_name",
             "last_name",
+            "position",
             "birthday",
             "male",
             "email",
             "phone",
-            "position",
             "profile_image",
         ]
 

@@ -139,7 +139,7 @@
                 {% for worker in team_members %}
                   <tr>
                     <td>
-                      <a href="#" class="avatar">
+                      <a href="{% url 'task_manager:member_detail' pk=worker.id %}" class="avatar">
                         {% if worker.profile_image %}
                           <img class="rounded" alt="Image placeholder" src="{{ worker.profile_image.url }}">
                         {% else %}
@@ -148,7 +148,7 @@
                       </a>
                     </td>
                     <th class="text-gray-900" scope="row">
-                      <a href="#">{{ worker }}</a>
+                      <a href="{% url 'task_manager:member_detail' pk=worker.id %}">{{ worker }}</a>
                     </th>
                     <td class="fw-bolder text-gray-500">
                       {{ worker.position.name }}
@@ -254,9 +254,7 @@
             <span class="badge bg-secondary rounded-circle me-3">
               <i class="bi bi-person-badge-fill text-white"></i>
             </span>
-                    <h4 class="h6 mb-0">
-                      <a href="#" class="text-dark text-decoration-none">{{ position.name }}</a>
-                    </h4>
+                    <h4 class="h6 mb-0">{{ position.name }}</h4>
                   </div>
                   <!-- Remove Button -->
                   <form action="{% url 'task_manager:home' %}" method="POST" class="ms-auto">

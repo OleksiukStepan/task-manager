@@ -92,7 +92,7 @@
                         {% if worker.profile_image %}
                           <img class="rounded" alt="Image placeholder" src="{{ worker.profile_image.url }}">
                         {% else %}
-                          <img class="rounded" alt="Image placeholder" src="/media/profile_images/default_avatar.jpg">
+                          <img class="rounded" alt="Image placeholder" src="{% static 'assets/img/team/default_avatar' %}">
                         {% endif %}
                       </a>
                     </td>

@@ -19,13 +19,14 @@
               <a href="{% url 'task_manager:member_update' pk=worker.id %}" class="btn btn-sm btn-secondary">Update </a>
             </div>
             <div class="card-body text-center">
-
+                
               <!-- Large Profile Picture -->
               <div class="mb-4">
                 {% if worker.profile_image %}
                   <img class="rounded-circle" src="{{ worker.profile_image.url }}" alt="Profile Picture" width="180" height="180">
                 {% else %}
-                  <img class="rounded-circle" src="/media/profile_images/default_avatar.jpg" alt="Default Avatar" width="180" height="180">
+                  {% load static %}
+                  <img class="rounded-circle" src={% static 'assets/img/team/default_avatar'%}" alt="Default Avatar" width="180" height="180">
                 {% endif %}
               </div>
 
@@ -103,7 +104,7 @@
                     <span class="text-gray-500">{{ worker.position.name }}</span>
                   </div>
                 </div>
-                
+
                 <!-- Online -->
                 <div class="col-md-6 mb-3">
                   <div class="d-flex justify-content-between border-bottom pb-2">
@@ -243,14 +244,14 @@
       <div class="row">
         <div class="col-12 mb-4">
           <div class="card shadow border-0 text-center p-0">
-            <div class="profile-cover rounded-top" data-background="/media/profile-cover.jpg"></div>
+            <div class="profile-cover rounded-top" data-background="{% static 'assets/img/profile-cover' %}"></div>
             <div class="card-body pb-5">
               {% if request.user.profile_image %}
                 <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
                      src="{{ request.user.profile_image.url }}">
               {% else %}
                 <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
-                     src="/media/profile_images/default_avatar.jpg">
+                     src="{% static 'assets/img/team/default_avatar' %}">
               {% endif %}
               <h4 class="h3">
                 {{ request.user.first_name }} {{ request.user.last_name }}

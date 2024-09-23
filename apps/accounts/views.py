@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.urls import reverse
 
-from .forms import LoginForm, SignUpForm
+from apps.accounts.forms import LoginForm, SignUpForm
 
 
 def login_view(request):

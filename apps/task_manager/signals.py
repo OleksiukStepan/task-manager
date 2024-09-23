@@ -1,7 +1,7 @@
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
 from django.utils import timezone
-from .models import Worker
+from apps.task_manager.models import Worker
 
 
 @receiver(user_logged_in)

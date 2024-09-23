@@ -64,7 +64,7 @@ class SignUpFormTests(TestCase):
         self.assertIn("agree_terms", form.errors)
         self.assertEqual(
             form.errors["agree_terms"][0],
-            "You must agree to the terms and conditions to register",
+            "You must agree to the terms & conditions to register",
         )
 
     def test_signup_form_field_attributes(self):

@@ -1,7 +1,7 @@
 """ URL patterns for task_manager """
 
 from django.urls import path
-from views import (
+from apps.accounts.views import (
     login_view,
     register_user,
     ResetPassword,

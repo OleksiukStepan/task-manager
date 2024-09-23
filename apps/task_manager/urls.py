@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from core import settings
-from views import (
+from apps.task_manager.views import (
     index,
     set_worker_status,
     remove_task_type,

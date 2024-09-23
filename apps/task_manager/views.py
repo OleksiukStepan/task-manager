@@ -173,14 +173,28 @@ class TaskDetailView(DetailView):
     model = Task
     template_name = "pages/task_detail.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        task = self.get_object()
+        context["workers"] = Worker.objects.all()
+        context["tags"] = task.tags.all()
+        context["title"] = "Task Detail"
+        return context
+
     def post(self, request, *args, **kwargs):
         task = self.get_object()
         user = request.user
 
+        # Handling adding and removing members
         if "Add" in request.POST:
             task.assignees.add(user)
         elif "Delete" in request.POST:
             task.assignees.remove(user)
+
+        # Handling saving tags only when the Save Tags button is clicked
+        if "save_tags" in request.POST:
+            selected_tags = request.POST.getlist("tags")
+            task.tags.set(selected_tags)
 
         return redirect("task_manager:task_detail", pk=task.id)
 
@@ -222,6 +236,8 @@ class TaskUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["workers"] = Worker.objects.all()
+        context["tags"] = Tag.objects.all()
         context["title"] = "Update Task"
         return context
 

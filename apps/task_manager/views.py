@@ -29,7 +29,8 @@ from apps.task_manager.models import Task, Worker, TaskType, Position, Tag
 def index(request):
     recent_tasks, team_members, task_types, positions, tags = _fetch_data()
     task_types_form, position_form, tag_form, search_form = _initialize_forms(
-        request)
+        request
+    )
 
     search_term = request.GET.get("search", "")
     if search_term:
@@ -116,11 +117,16 @@ class GenericCreateView(LoginRequiredMixin, CreateView):
     template_name = "pages/form_create.html"
 
     def form_valid(self, form):
-        messages.success(self.request, f"{self.model._meta.verbose_name} added successfully.")
+        messages.success(
+            self.request,
+            f"{self.model._meta.verbose_name} added successfully."
+        )
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "There was an error adding the item.")
+        messages.error(
+            self.request, "There was an error adding the item."
+        )
         return super().form_invalid(form)
 
     def get_success_url(self):
@@ -133,7 +139,10 @@ class GenericDeleteView(LoginRequiredMixin, DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        messages.success(request, f"{self.model._meta.verbose_name} deleted successfully.")
+        messages.success(
+            request,
+            f"{self.model._meta.verbose_name} deleted successfully."
+        )
         return super().delete(request, *args, **kwargs)
 
 
@@ -164,7 +173,7 @@ class SaveTagsView(LoginRequiredMixin, View):
     def post(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
         selected_tags = request.POST.getlist("tags")
-        task.tags.set(selected_tags)  # Set the selected tags to the task
+        task.tags.set(selected_tags)
         return redirect("task_manager:task_update", pk=task.pk)
 
 
@@ -185,13 +194,16 @@ class TaskListView(LoginRequiredMixin, ListView):
             queryset = queryset.order_by(order)
 
         if form.is_valid() and form.cleaned_data.get("search"):
-            queryset = queryset.filter(name__icontains=form.cleaned_data["search"])
+            queryset = queryset.filter(
+                name__icontains=form.cleaned_data["search"])
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_sort_by"] = self.request.GET.get("sort_by", "created_at")
+        context["current_sort_by"] = self.request.GET.get(
+            "sort_by", "created_at"
+        )
         context["current_sort_dir"] = self.request.GET.get("sort_dir", "desc")
         search_term = self.request.GET.get("search", "")
         context["search_form"] = SearchForm(initial={"search": search_term})
@@ -238,7 +250,8 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         form = TaskForm()
         workers = Worker.objects.all()
         return render(
-            request, "pages/task_create.html", {"form": form, "workers": workers}
+            request, "pages/task_create.html",
+            {"form": form, "workers": workers}
         )
 
     def post(self, request, *args, **kwargs):
@@ -253,7 +266,8 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
         workers = Worker.objects.all()
         return render(
-            request, "pages/task_create.html", {"form": form, "workers": workers}
+            request, "pages/task_create.html",
+            {"form": form, "workers": workers}
         )
 
 
@@ -288,7 +302,9 @@ class MemberListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Worker.objects.select_related("position").prefetch_related("tasks")
+        queryset = Worker.objects.select_related("position").prefetch_related(
+            "tasks"
+        )
         sort_by = self.request.GET.get("sort_by", "username")
         sort_dir = self.request.GET.get("sort_dir", "desc")
         form = SearchForm(self.request.GET)

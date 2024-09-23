@@ -17,4 +17,6 @@ class UserSignalTests(TestCase):
         self.user.refresh_from_db()
         self.assertTrue(self.user.is_online)
         self.assertIsNotNone(self.user.last_login)
-        self.assertAlmostEqual(self.user.last_login, timezone.now(), delta=timezone.timedelta(seconds=1))
+        self.assertAlmostEqual(
+            self.user.last_login, timezone.now(), delta=timezone.timedelta(seconds=1)
+        )

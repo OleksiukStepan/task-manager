@@ -71,13 +71,17 @@ class TaskViewTests(TaskManagerViewTests):
             "priority": 3,
             "task_type": self.task_type.id,
         }
-        response = self.client.post(reverse("task_manager:task_update", args=[self.task.id]), data=form_data)
+        response = self.client.post(
+            reverse("task_manager:task_update", args=[self.task.id]), data=form_data
+        )
         self.assertEqual(response.status_code, 302)
         self.task.refresh_from_db()
         self.assertEqual(self.task.name, "Updated Task")
 
     def test_task_delete_view(self):
-        response = self.client.post(reverse("task_manager:task_delete", args=[self.task.id]))
+        response = self.client.post(
+            reverse("task_manager:task_delete", args=[self.task.id])
+        )
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Task.objects.filter(name=self.task.name).exists())
 
@@ -97,7 +101,9 @@ class WorkerViewTests(TaskManagerViewTests):
             "last_name": "Worker",
             "position": self.position.id,
         }
-        response = self.client.post(reverse("task_manager:member_create"), data=form_data)
+        response = self.client.post(
+            reverse("task_manager:member_create"), data=form_data
+        )
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Worker.objects.filter(username="newworker").exists())
 
@@ -107,13 +113,17 @@ class WorkerViewTests(TaskManagerViewTests):
             "first_name": "Updated",
             "last_name": "Worker",
         }
-        response = self.client.post(reverse("task_manager:member_update", args=[self.worker.id]), data=form_data)
+        response = self.client.post(
+            reverse("task_manager:member_update", args=[self.worker.id]), data=form_data
+        )
         self.assertEqual(response.status_code, 302)
         self.worker.refresh_from_db()
         self.assertEqual(self.worker.username, "updatedworker")
 
     def test_member_delete_view(self):
-        response = self.client.post(reverse("task_manager:member_delete", args=[self.worker.id]))
+        response = self.client.post(
+            reverse("task_manager:member_delete", args=[self.worker.id])
+        )
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Worker.objects.filter(username=self.worker.username).exists())
 
@@ -121,12 +131,16 @@ class WorkerViewTests(TaskManagerViewTests):
 class TaskTypeViewTests(TaskManagerViewTests):
     def test_add_task_type_view(self):
         form_data = {"name": "Testing"}
-        response = self.client.post(reverse("task_manager:add_task_type"), data=form_data)
+        response = self.client.post(
+            reverse("task_manager:add_task_type"), data=form_data
+        )
         self.assertEqual(response.status_code, 302)
         self.assertTrue(TaskType.objects.filter(name="Testing").exists())
 
     def test_remove_task_type_view(self):
-        response = self.client.post(reverse("task_manager:remove_task_type", args=[self.task_type.id]))
+        response = self.client.post(
+            reverse("task_manager:remove_task_type", args=[self.task_type.id])
+        )
         self.assertEqual(response.status_code, 302)
         self.assertFalse(TaskType.objects.filter(name=self.task_type.name).exists())
 
@@ -134,13 +148,15 @@ class TaskTypeViewTests(TaskManagerViewTests):
 class PositionViewTests(TaskManagerViewTests):
     def test_add_position_view(self):
         form_data = {"name": "Manager"}
-        response = self.client.post(reverse("task_manager:add_position"), data=form_data)
+        response = self.client.post(
+            reverse("task_manager:add_position"), data=form_data
+        )
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Position.objects.filter(name="Manager").exists())
 
     def test_remove_position_view(self):
-        response = self.client.post(reverse("task_manager:remove_position", args=[self.position.id]))
+        response = self.client.post(
+            reverse("task_manager:remove_position", args=[self.position.id])
+        )
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Position.objects.filter(name=self.position.name).exists())
-
-

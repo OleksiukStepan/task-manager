@@ -15,7 +15,11 @@ class MemberCreateForm(UserCreationForm):
     password1 = forms.CharField(
         label="Password",
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "placeholder": "Password", "required": True}
+            attrs={
+                "class": "form-control",
+                "placeholder": "Password",
+                "required": True
+            }
         ),
     )
     password2 = forms.CharField(
@@ -147,7 +151,11 @@ class TaskForm(forms.ModelForm):
                 }
             ),
             "deadline": forms.DateInput(
-                attrs={"class": "form-control", "type": "date", "required": False}
+                attrs={
+                    "class": "form-control",
+                    "type": "date",
+                    "required": False,
+                }
             ),
             "priority": forms.Select(
                 attrs={"class": "form-control", "required": False}

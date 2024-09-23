@@ -49,7 +49,7 @@ class MemberUpdateFormTests(TestCase):
             username="testworker",
             password="password123",
             first_name="Test",
-            last_name="Worker"
+            last_name="Worker",
         )
 
     def test_member_update_form_valid_data(self):
@@ -96,7 +96,9 @@ class TaskFormTests(TestCase):
         form = TaskForm(data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn("deadline", form.errors)
-        self.assertEqual(form.errors["deadline"][0], "The deadline cannot be in the past")
+        self.assertEqual(
+            form.errors["deadline"][0], "The deadline cannot be in the past"
+        )
 
 
 class SearchFormTests(TestCase):

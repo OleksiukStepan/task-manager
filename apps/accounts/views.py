@@ -34,7 +34,11 @@ def login_view(request):
         else:
             msg = "Error validating the form"
 
-    return render(request, "accounts/login.html", {"form": form, "msg": msg})
+    return render(
+        request,
+        "accounts/login.html",
+        {"form": form, "msg": msg}
+    )
 
 
 def register_user(request):
@@ -69,7 +73,9 @@ class ResetPassword(LoginRequiredMixin, PasswordChangeView):
     form_class = PasswordChangeForm
 
     def form_valid(self, form):
-        messages.success(self.request, "Your password was successfully changed!")
+        messages.success(
+            self.request, "Your password was successfully changed!"
+        )
         return super().form_valid(form)
 
     def get_form(self, form_class=None):
@@ -98,7 +104,10 @@ class ResetPassword(LoginRequiredMixin, PasswordChangeView):
         return form
 
     def get_success_url(self):
-        return reverse("task_manager:member_update", kwargs={"pk": self.request.user.pk})
+        return reverse(
+            "task_manager:member_update",
+            kwargs={"pk": self.request.user.pk},
+        )
 
 
 def terms_and_conditions(request):

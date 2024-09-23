@@ -125,30 +125,39 @@ class TaskForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(
                 attrs={"class": "form-control",
-                       "placeholder": "Enter task name"}
+                       "placeholder": "Enter task name",
+                       "required": False
+                }
             ),
             "description": forms.Textarea(
                 attrs={
                     "class": "form-control",
                     "placeholder": "Enter task description",
                     "rows": 3,
+                    "required": False
                 }
             ),
             "deadline": forms.DateInput(
-                attrs={"class": "form-control", "type": "date"}
+                attrs={
+                    "class": "form-control",
+                    "type": "date",
+                    "required": False
+                }
             ),
             "priority": forms.Select(
                 attrs={
                     "class": "form-control",
+                    "required": False
                 }
             ),
             "task_type": forms.Select(
                 attrs={
                     "class": "form-control",
+                    "required": False
                 }
             ),
             "is_complete": forms.CheckboxInput(
-                attrs={"class": "form-check-input"}),
+                attrs={"class": "form-check-input", "required": False}),
         }
 
     def clean_deadline(self):

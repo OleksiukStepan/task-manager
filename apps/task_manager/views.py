@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import (
     ListView,
     DetailView,
@@ -130,6 +131,14 @@ def set_worker_status(request, pk):
     )
 
     return redirect(request.META.get("HTTP_REFERER", "index"))
+
+
+class SaveTagsView(View):
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        selected_tags = request.POST.getlist("tags")
+        task.tags.set(selected_tags)  # Set the selected tags to the task
+        return redirect("task_manager:task_update", pk=task.pk)
 
 
 # class TaskListView(LoginRequiredMixin, ListView):

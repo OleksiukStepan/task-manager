@@ -1,5 +1,7 @@
 from django import template
 
+from apps.task_manager.models import Tag
+
 register = template.Library()
 
 
@@ -13,3 +15,9 @@ def priority_class(priority):
         return "text-info"
     else:
         return "text-muted"
+
+
+@register.inclusion_tag("includes/tags_list.html")
+def load_tags():
+    tags = Tag.objects.all()
+    return {"tags": tags}

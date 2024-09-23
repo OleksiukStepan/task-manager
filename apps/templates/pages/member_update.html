@@ -1,0 +1,150 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Member Update {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-12 col-xl-8">
+      <div class="card card-body border-0 shadow mb-4">
+        <h2 class="h5 mb-4">Update Member</h2>
+        <form method="post" enctype="multipart/form-data" action="{% url 'task_manager:member_update' worker.id %}">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+
+          <!-- Username and First Name -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.username.label_tag }}
+              {{ form.username }}
+              {{ form.username.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.first_name.label_tag }}
+              {{ form.first_name }}
+              {{ form.first_name.errors }}
+            </div>
+          </div>
+
+          <!-- Last Name and Position -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.last_name.label_tag }}
+              {{ form.last_name }}
+              {{ form.last_name.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.position.label_tag }}
+              {{ form.position }}
+              {{ form.position.errors }}
+            </div>
+          </div>
+
+          <!-- Gender and Email -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.male.label_tag }}
+              {{ form.male }}
+              {{ form.male.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.email.label_tag }}
+              {{ form.email }}
+              {{ form.email.errors }}
+            </div>
+          </div>
+
+          <!-- Phone and Birthday -->
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.phone.label_tag }}
+              {{ form.phone }}
+              {{ form.phone.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.birthday.label_tag }}
+              {{ form.birthday }}
+              {{ form.birthday.errors }}
+            </div>
+          </div>
+
+          <!-- Profile Image -->
+          <div class="row" id="profile-image-row" style="display: none">
+            {{ form.profile_image.label_tag }}
+            {{ form.profile_image }}
+            {{ form.profile_image.errors }}
+          </div>
+
+          <button class=" btn btn-primary mt-2" type="submit">Update Member</button>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- Profile Info -->
+    <div class="col-12 col-xl-4">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="card shadow border-0 text-center p-0">
+            {% load static %}
+            <div class="profile-cover rounded-top" data-background="{% static 'assets/img/profile-cover.jpg' %}"></div>
+            <div class="card-body pb-5">
+              {% if worker.profile_image %}
+                <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
+                     src="{{ worker.profile_image.url }}">
+              {% else %}
+                <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
+                     src="{% static 'assets/img/team/default_avatar.jpg' %}">
+              {% endif %}
+              <h4 class="h3">
+                {{ worker.first_name }} {{ worker.last_name }}
+              </h4>
+              <h5 class="fw-normal">
+                {{ worker.username }}
+              </h5>
+              <p class="text-gray mb-4">
+                {{ worker.email }}
+              </p>
+              <button class="btn btn-gray-800 mt-2 animate-up-2" id="change-photo-btn" type="button">
+                Change Photo
+              </button>
+
+              <!-- Hidden File Input -->
+              <input type="file" id="profile-image-input" style="display: none;" accept="image/*">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+  <script>
+      document.getElementById('change-photo-btn').addEventListener('click', function() {
+          document.getElementById('profile-image-input').click();
+      });
+
+      document.getElementById('profile-image-input').addEventListener('change', function(event) {
+          // Get the selected file
+          const file = event.target.files[0];
+          if (file) {
+              // Find the hidden profile image field in the form and update it with the new file
+              const formImageInput = document.querySelector('input[name="profile_image"]');
+              formImageInput.files = event.target.files;
+
+              // Optionally, you can display the new image immediately (preview)
+              const reader = new FileReader();
+              reader.onload = function(e) {
+                  document.querySelector('.avatar-xl').src = e.target.result;
+              };
+              reader.readAsDataURL(file);
+          }
+      });
+  </script>
+{% endblock javascripts %}

@@ -1,0 +1,160 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Create Member{% endblock %}
+
+{% block content %}
+  {% load static %}
+  <div class="row">
+    <div class="col-12 col-xl-8">
+      <div class="card card-body border-0 shadow mb-4">
+        <h2 class="h5 mb-4">Create New Member</h2>
+        <form method="post" enctype="multipart/form-data" action="{% url 'task_manager:member_create' %}">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.username.label_tag }}
+              <input type="text" name="{{ form.username.name }}" class="form-control" id="username_input"
+                     placeholder="Username" value="{{ form.username.value|default_if_none:'' }}">
+              {{ form.username.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.position.label_tag }}
+              {{ form.position }}
+              {{ form.position.errors }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.first_name.label_tag }}
+              <input type="text" name="{{ form.first_name.name }}" class="form-control" id="first_name_input"
+                     placeholder="First Name" value="{{ form.first_name.value|default_if_none:'' }}">
+              {{ form.first_name.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.last_name.label_tag }}
+              <input type="text" name="{{ form.last_name.name }}" class="form-control" id="last_name_input"
+                     placeholder="Last Name" value="{{ form.last_name.value|default_if_none:'' }}">
+              {{ form.last_name.errors }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.password1.label_tag }}
+              {{ form.password1 }}
+              {{ form.password1.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.password2.label_tag }}
+              {{ form.password2 }}
+              {{ form.password2.errors }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.male.label_tag }}
+              {{ form.male }}
+              {{ form.male.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.email.label_tag }}
+              <input type="text" name="{{ form.email.name }}" class="form-control" id="email_input"
+                     placeholder="name@company.com" value="{{ form.email.value|default_if_none:'' }}">
+              {{ form.email.errors }}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.phone.label_tag }}
+              {{ form.phone }}
+              {{ form.phone.errors }}
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.birthday.label_tag }}
+              {{ form.birthday }}
+              {{ form.birthday.errors }}
+            </div>
+          </div>
+
+          <div class="row" style="display: none">
+              {{ form.profile_image.label_tag }}
+              {{ form.profile_image }}
+              {{ form.profile_image.errors }}
+          </div>
+
+          <button class="btn btn-primary mt-2" type="submit">Create Member</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Profile Info Preview -->
+    <div class="col-12 col-xl-4">
+      <div class="row">
+        <div class="col-12 mb-4">
+          <div class="card shadow border-0 text-center p-0">
+            <div class="profile-cover rounded-top" data-background="{% static 'assets/img/profile-cover.jpg' %}"></div>
+            <div class="card-body pb-5">
+              <img id="avatar-preview" src="{% static 'assets/img/team/default_avatar.jpg' %}"
+                   class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Member Portrait">
+              <h4 class="h3" id="preview_full_name"></h4>
+              <h5 class="fw-normal" id="preview_username"></h5>
+              <p class="text-gray mb-4" id="preview_email"></p>
+              <a class="btn btn-gray-800 mt-2 animate-up-2" id="change-photo-btn">Add Photo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+  <script>
+      document.getElementById('username_input').addEventListener('input', updateUsername);
+      document.getElementById('first_name_input').addEventListener('input', updatePreview);
+      document.getElementById('last_name_input').addEventListener('input', updatePreview);
+      document.getElementById('email_input').addEventListener('input', updateEmail);
+
+      function updateUsername() {
+          document.getElementById('preview_username').textContent = document.getElementById('username_input').value;
+      }
+
+      function updatePreview() {
+          const firstName = document.getElementById('first_name_input').value;
+          const lastName = document.getElementById('last_name_input').value;
+          document.getElementById('preview_full_name').textContent = `${firstName} ${lastName}`;
+      }
+
+      function updateEmail() {
+          document.getElementById('preview_email').textContent = document.getElementById('email_input').value;
+      }
+
+      const changePhotoBtn = document.getElementById('change-photo-btn');
+      const profileImageInput = document.getElementById('{{ form.profile_image.id_for_label }}');
+      const avatarPreview = document.getElementById('avatar-preview');
+
+      changePhotoBtn.addEventListener('click', function (event) {
+          event.preventDefault();
+          profileImageInput.click();
+      });
+
+      profileImageInput.addEventListener('change', function () {
+          const file = this.files[0];
+          if (file) {
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                  avatarPreview.src = e.target.result;
+              };
+              reader.readAsDataURL(file);
+          }
+      });
+
+  </script>
+{% endblock javascripts %}

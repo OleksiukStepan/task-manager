@@ -1,0 +1,27 @@
+<div class="modal fade" id="createItemModal" tabindex="-1" aria-labelledby="createItemModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createItemModalLabel">Create <span id="createItemType">Item</span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="createItemForm" method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="itemName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="itemName" name="name" placeholder="Enter name" required>
+          </div>
+          <div id="colorField" style="display: none;">
+            <div class="mb-2 d-flex align-items-center">
+              <label for="itemColor" class="form-label me-4">Color:</label>
+              <input type="color" class="form-control form-control-color me-2" style="width: 50px; height: 38px;" id="itemColor" name="color" value="#000000">
+            </div>
+          </div>
+          <input type="hidden" id="itemType" name="item_type">
+          <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

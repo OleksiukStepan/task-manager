@@ -1,0 +1,15 @@
+<ul class="flex-column nav">
+  {% for tag in tags %}
+    <li class="nav-item">
+      <a class="nav-link" href="#">
+        <span class="sidebar-text" style="color: {{ tag.color }}">{{ tag.name }}</span>
+      </a>
+    </li>
+  {% empty %}
+    <li class="nav-item">
+      <span class="nav-link disabled">
+        <span class="sidebar-text">No Tags Available</span>
+      </span>
+    </li>
+  {% endfor %}
+</ul>

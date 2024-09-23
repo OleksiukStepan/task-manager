@@ -1,0 +1,221 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Home {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+  {% load static %}
+
+  <div class="row">
+    <div class="col-12 col-xl-8">
+      <div class="row">
+
+        <!-- Recent Tasks -->
+        <div class="col-12 mb-4">
+          <div class="card border-0 shadow">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h2 class="fs-5 fw-bold mb-0">Recent Tasks</h2>
+                </div>
+                <div class="col text-end">
+                  <a href="{% url 'task_manager:task_list' %}" class="btn btn-sm btn-primary">See all</a>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                <tr>
+                  <th class="border-bottom" scope="col">Name</th>
+                  <th class="border-bottom" scope="col">Type</th>
+                  <th class="border-bottom" scope="col">Deadline</th>
+                  <th class="border-bottom" scope="col">Priority</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% load custom_filters %}
+                {% for task in recent_tasks %}
+                  <tr>
+                    <th class="text-gray-900" scope="row">
+                      <a href="{{ task.get_absolute_url }}">{{ task.name }}</a>
+                    </th>
+                    <td class="fw-bolder text-gray-500">
+                      {{ task.task_type.name }}
+                    </td>
+                    <td class="fw-bolder text-gray-500">
+                      {{ task.deadline }}
+                    </td>
+                    <td class="fw-bolder {{ task.priority|priority_class }}">
+                      {{ task.get_priority_display }}
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team members -->
+        <div class="col-12 mb-4">
+          <div class="card border-0 shadow">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h2 class="fs-5 fw-bold mb-0">Team Members</h2>
+                </div>
+                <div class="col text-end">
+                  <a href="{% url 'task_manager:member_list' %}" class="btn btn-sm btn-primary">See all</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                <tr>
+                  <th class="border-bottom" scope="col">Photo</th>
+                  <th class="border-bottom" scope="col">Name</th>
+                  <th class="border-bottom" scope="col">Position</th>
+                  <th class="border-bottom" scope="col">Status</th>
+                  <th class="border-bottom" scope="col">Tasks</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for worker in team_members %}
+                  <tr>
+                    <td>
+                      <a href="{{ worker.get_absolute_url }}" class="avatar">
+                        {% if worker.profile_image %}
+                          <img class="rounded" alt="Image placeholder" src="{{ worker.profile_image.url }}">
+                        {% else %}
+                          <img class="rounded" alt="Image placeholder" src="{% static 'assets/img/team/default_avatar.jpg' %}">
+                        {% endif %}
+                      </a>
+                    </td>
+                    <th class="text-gray-900" scope="row">
+                      <a href="{{ worker.get_absolute_url }}">{{ worker }}</a>
+                    </th>
+                    <td class="fw-bolder text-gray-500">
+                      {{ worker.position.name }}
+                    </td>
+                    <td class="fw-bolder">
+                      {% if worker.is_online %}
+                        <span class="badge bg-success">Online</span>
+                      {% else %}
+                        <span class="badge bg-danger">Offline</span>
+                      {% endif %}
+                    </td>
+                    <td class="fw-bolder text-gray-500">
+                      {% if worker.tasks.all %}
+                        <ul class="list-unstyled mb-0">
+                          {% for task in worker.tasks.all %}
+                            <li><a href="{{ task.get_absolute_url }}">{{ task.name }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      {% else %}
+                        <span class="text-muted">No tasks assigned</span>
+                      {% endif %}
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Columns -->
+
+    <!-- Task Types -->
+    <div class="col-12 col-xxl-4">
+      <div class="mb-4">
+        <div class="card border-0 shadow-sm rounded">
+          <div
+              class="card-header border-bottom d-flex align-items-center justify-content-between bg-primary text-white">
+            <h2 class="fs-5 fw-bold mb-0">Task Types</h2>
+          </div>
+          <div class="card-body">
+            <!-- Form to Add Task Type -->
+            <form method="POST" action="{% url 'task_manager:add_task_type' %}" class="mb-3">
+              {% csrf_token %}
+              <div class="input-group">
+                {{ task_types_form.name }}
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+
+            <!-- List of Task Types -->
+            <ul class="list-group list-group-flush list my--3">
+              {% for task_type in task_types %}
+                <li class="list-group-item px-3 py-2 d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+            <span class="badge bg-secondary rounded-circle me-3">
+              <i class="bi bi-tag-fill text-white"></i>
+            </span>
+                    <h4 class="h6 mb-0">
+                      {{ task_type.name }}
+                    </h4>
+                  </div>
+                  <!-- Remove Button -->
+                  <form action="{% url 'task_manager:remove_task_type' task_type.id %}" method="POST" class="ms-auto">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                  </form>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Positions -->
+      <div class="mb-4">
+        <div class="card border-0 shadow-sm rounded">
+          <div class="card-header border-bottom d-flex align-items-center justify-content-between bg-primary text-white">
+            <h2 class="fs-5 fw-bold mb-0">Positions</h2>
+          </div>
+          <div class="card-body">
+          
+            <!-- Form to Add Position -->
+            <form method="POST" action="{% url 'task_manager:add_position' %}" class="mb-3">
+              {% csrf_token %}
+              <div class="input-group">
+                {{ position_form.name }}
+                <button type="submit" class="btn btn-primary">Add</button>
+              </div>
+            </form>
+
+            <!-- List of Positions -->
+            <ul class="list-group list-group-flush list my--3">
+              {% for position in positions %}
+                <li class="list-group-item px-3 py-2 d-flex align-items-center justify-content-between">
+                  <div class="d-flex align-items-center">
+            <span class="badge bg-secondary rounded-circle me-3">
+              <i class="bi bi-person-badge-fill text-white"></i>
+            </span>
+                    <h4 class="h6 mb-0">{{ position.name }}</h4>
+                  </div>
+                  <!-- Remove Button -->
+                  <form action="{% url 'task_manager:remove_position' position.id %}" method="POST" class="ms-auto">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Remove</button>
+                  </form>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

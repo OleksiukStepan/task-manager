@@ -19,7 +19,8 @@ from apps.task_manager.forms import (
     PositionForm,
     TaskTypeForm,
     TaskForm,
-    SearchForm, TagForm,
+    SearchForm,
+    TagForm,
 )
 from apps.task_manager.models import Task, Worker, TaskType, Position, Tag
 
@@ -27,8 +28,7 @@ from apps.task_manager.models import Task, Worker, TaskType, Position, Tag
 # @login_required(login_url="/login/")
 def index(request):
     recent_tasks, team_members, task_types, positions, tags = fetch_data()
-    task_types_form, position_form, tag_form, search_form = initialize_forms(
-        request)
+    task_types_form, position_form, tag_form, search_form = initialize_forms(request)
 
     search_term = request.GET.get("search", "")
     if search_term:
@@ -85,7 +85,7 @@ def add_task_type(request):
         form = TaskTypeForm(request.POST)
         if form.is_valid():
             form.save()
-    return redirect('task_manager:home')
+    return redirect("task_manager:home")
 
 
 def remove_task_type(request, task_type_id):
@@ -121,13 +121,10 @@ def set_worker_status(request, pk):
     worker = get_object_or_404(Worker, pk=pk)
     status = request.GET.get("status", "offline")
     worker.is_online = True if status == "online" else False
-    worker.save(update_fields=['is_online'])
+    worker.save(update_fields=["is_online"])
     messages.success(
         request,
-        (
-            f"Worker status set to "
-            f"{'Online' if worker.is_online else 'Offline'}."
-        )
+        (f"Worker status set to " f"{'Online' if worker.is_online else 'Offline'}."),
     )
 
     return redirect(request.META.get("HTTP_REFERER", "index"))
@@ -159,22 +156,16 @@ class TaskListView(ListView):
             queryset = queryset.order_by(order)
 
         if form.is_valid() and form.cleaned_data.get("search"):
-            queryset = queryset.filter(
-                name__icontains=form.cleaned_data["search"]
-            )
+            queryset = queryset.filter(name__icontains=form.cleaned_data["search"])
 
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["current_sort_by"] = self.request.GET.get(
-            "sort_by", "created_at"
-        )
+        context["current_sort_by"] = self.request.GET.get("sort_by", "created_at")
         context["current_sort_dir"] = self.request.GET.get("sort_dir", "desc")
         search_term = self.request.GET.get("search", "")
-        context["search_form"] = SearchForm(
-            initial={"search": search_term}
-        )
+        context["search_form"] = SearchForm(initial={"search": search_term})
         return context
 
 
@@ -217,8 +208,7 @@ class TaskCreateView(CreateView):
         form = TaskForm()
         workers = Worker.objects.all()
         return render(
-            request, "pages/task_create.html",
-            {"form": form, "workers": workers}
+            request, "pages/task_create.html", {"form": form, "workers": workers}
         )
 
     def post(self, request, *args, **kwargs):
@@ -233,8 +223,7 @@ class TaskCreateView(CreateView):
 
         workers = Worker.objects.all()
         return render(
-            request, "pages/task_create.html",
-            {"form": form, "workers": workers}
+            request, "pages/task_create.html", {"form": form, "workers": workers}
         )
 
 
@@ -269,8 +258,7 @@ class MemberListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Worker.objects.select_related("position").prefetch_related(
-            "tasks")
+        queryset = Worker.objects.select_related("position").prefetch_related("tasks")
         sort_by = self.request.GET.get("sort_by", "username")
         sort_dir = self.request.GET.get("sort_dir", "desc")
         form = SearchForm(self.request.GET)
@@ -293,11 +281,8 @@ class MemberListView(ListView):
         context = super().get_context_data(**kwargs)
         context["current_sort_by"] = self.request.GET.get("sort_by", "name")
         context["current_sort_dir"] = self.request.GET.get("sort_dir", "desc")
-        name = self.request.GET.get("name", "")
         search_term = self.request.GET.get("search", "")
-        context["search_form"] = SearchForm(
-            initial={"search": search_term}
-        )
+        context["search_form"] = SearchForm(initial={"search": search_term})
         return context
 
 

@@ -22,9 +22,7 @@ class Position(models.Model):
 
 def user_directory_path(instance, filename):
     ext = filename.split(".")[-1]
-    filename = (
-        f"{timezone.now().strftime('%Y%m%d%H%M%S')}_{instance.username}.{ext}"
-    )
+    filename = f"{timezone.now().strftime('%Y%m%d%H%M%S')}_{instance.username}.{ext}"
     return os.path.join("profile_images", filename)
 
 
@@ -40,10 +38,7 @@ class Worker(AbstractUser):
         blank=True,
     )
     profile_image = models.ImageField(
-        upload_to=user_directory_path,
-        max_length=255,
-        blank=True,
-        null=True
+        upload_to=user_directory_path, max_length=255, blank=True, null=True
     )
 
     class Meta:
@@ -52,9 +47,7 @@ class Worker(AbstractUser):
         verbose_name_plural = "workers"
 
     def get_absolute_url(self):
-        return reverse(
-            "task_manager:member_detail", kwargs={"pk": self.id}
-        )
+        return reverse("task_manager:member_detail", kwargs={"pk": self.id})
 
     def __str__(self):
         return f"{self.username} ({self.first_name} {self.last_name})"
@@ -92,9 +85,7 @@ class Task(models.Model):
     )
 
     def get_absolute_url(self):
-        return reverse(
-            "task_manager:task_detail", kwargs={"pk": self.id}
-        )
+        return reverse("task_manager:task_detail", kwargs={"pk": self.id})
 
     def __str__(self):
         return self.name

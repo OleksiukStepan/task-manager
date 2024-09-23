@@ -10,15 +10,23 @@ class MemberCreateForm(UserCreationForm):
     profile_image = forms.ImageField(
         required=False,
         widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
-        label="Profile Image"
+        label="Profile Image",
     )
     password1 = forms.CharField(
         label="Password",
-        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Password", "required": True})
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": "Password", "required": True}
+        ),
     )
     password2 = forms.CharField(
         label="Confirm Password",
-        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "Confirm Password", "required": True})
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Confirm Password",
+                "required": True,
+            }
+        ),
     )
 
     class Meta:
@@ -94,7 +102,7 @@ class MemberUpdateForm(forms.ModelForm):
     profile_image = forms.ImageField(
         required=False,
         widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
-        label="Profile Image"
+        label="Profile Image",
     )
 
     class Meta(MemberCreateForm.Meta):
@@ -124,9 +132,10 @@ class TaskForm(forms.ModelForm):
         ]
         widgets = {
             "name": forms.TextInput(
-                attrs={"class": "form-control",
-                       "placeholder": "Enter task name",
-                       "required": False
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter task name",
+                    "required": False,
                 }
             ),
             "description": forms.Textarea(
@@ -134,30 +143,21 @@ class TaskForm(forms.ModelForm):
                     "class": "form-control",
                     "placeholder": "Enter task description",
                     "rows": 3,
-                    "required": False
+                    "required": False,
                 }
             ),
             "deadline": forms.DateInput(
-                attrs={
-                    "class": "form-control",
-                    "type": "date",
-                    "required": False
-                }
+                attrs={"class": "form-control", "type": "date", "required": False}
             ),
             "priority": forms.Select(
-                attrs={
-                    "class": "form-control",
-                    "required": False
-                }
+                attrs={"class": "form-control", "required": False}
             ),
             "task_type": forms.Select(
-                attrs={
-                    "class": "form-control",
-                    "required": False
-                }
+                attrs={"class": "form-control", "required": False}
             ),
             "is_complete": forms.CheckboxInput(
-                attrs={"class": "form-check-input", "required": False}),
+                attrs={"class": "form-check-input", "required": False}
+            ),
         }
 
     def clean_deadline(self):
@@ -223,7 +223,7 @@ class TagForm(forms.ModelForm):
                 attrs={
                     "class": "form-control mb-2",
                     "placeholder": "Enter tag color",
-                    "type": "color"
+                    "type": "color",
                 }
             ),
         }

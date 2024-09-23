@@ -25,14 +25,15 @@ from apps.task_manager.forms import (
 from apps.task_manager.models import Task, Worker, TaskType, Position, Tag
 
 
-# @login_required(login_url="/login/")
+@login_required
 def index(request):
-    recent_tasks, team_members, task_types, positions, tags = fetch_data()
-    task_types_form, position_form, tag_form, search_form = initialize_forms(request)
+    recent_tasks, team_members, task_types, positions, tags = _fetch_data()
+    task_types_form, position_form, tag_form, search_form = _initialize_forms(
+        request)
 
     search_term = request.GET.get("search", "")
     if search_term:
-        recent_tasks, team_members = search_tasks_and_members(search_term)
+        recent_tasks, team_members = _search_tasks_and_members(search_term)
 
     context = {
         "segment": "index",
@@ -49,7 +50,7 @@ def index(request):
     return render(request, "pages/index.html", context)
 
 
-def fetch_data():
+def _fetch_data():
     """Fetches the data needed for the index page."""
     recent_tasks = Task.objects.order_by("-created_at")[:10]
     team_members = Worker.objects.all()[:10]
@@ -59,7 +60,7 @@ def fetch_data():
     return recent_tasks, team_members, task_types, positions, tags
 
 
-def initialize_forms(request):
+def _initialize_forms(request):
     """Initializes the forms for task types, positions, and tags."""
     task_types_form = TaskTypeForm()
     position_form = PositionForm()
@@ -69,7 +70,7 @@ def initialize_forms(request):
     return task_types_form, position_form, tag_form, search_form
 
 
-def search_tasks_and_members(search_term):
+def _search_tasks_and_members(search_term):
     """Handles search functionality for tasks and team members."""
     recent_tasks = Task.objects.filter(name__icontains=search_term)
     team_members = Worker.objects.filter(
@@ -80,43 +81,21 @@ def search_tasks_and_members(search_term):
     return recent_tasks, team_members
 
 
-def add_task_type(request):
-    if request.method == "POST":
-        form = TaskTypeForm(request.POST)
-        if form.is_valid():
-            form.save()
-    return redirect("task_manager:home")
-
-
+@login_required
 def remove_task_type(request, task_type_id):
     task_type = get_object_or_404(TaskType, pk=task_type_id)
     task_type.delete()
     return redirect("task_manager:home")
 
 
-def add_position(request):
-    if request.method == "POST":
-        form = PositionForm(request.POST)
-        if form.is_valid():
-            form.save()
-    return redirect("task_manager:home")
-
-
+@login_required
 def remove_position(request, position_id):
     position = get_object_or_404(Position, pk=position_id)
     position.delete()
     return redirect("task_manager:home")
 
 
-def add_tag(request):
-    if request.method == "POST":
-        form = TagForm(request.POST)
-        if form.is_valid():
-            form.save()
-    return redirect("task_manager:home")
-
-
-# @login_required
+@login_required
 def set_worker_status(request, pk):
     worker = get_object_or_404(Worker, pk=pk)
     status = request.GET.get("status", "offline")
@@ -124,13 +103,64 @@ def set_worker_status(request, pk):
     worker.save(update_fields=["is_online"])
     messages.success(
         request,
-        (f"Worker status set to " f"{'Online' if worker.is_online else 'Offline'}."),
+        (
+            f"Worker status set to "
+            f"{'Online' if worker.is_online else 'Offline'}."
+        ),
     )
 
     return redirect(request.META.get("HTTP_REFERER", "index"))
 
 
-class SaveTagsView(View):
+class GenericCreateView(LoginRequiredMixin, CreateView):
+    template_name = "pages/form_create.html"
+
+    def form_valid(self, form):
+        messages.success(self.request, f"{self.model._meta.verbose_name} added successfully.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "There was an error adding the item.")
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("task_manager:home")
+
+
+class GenericDeleteView(LoginRequiredMixin, DeleteView):
+    success_url = reverse_lazy("task_manager:home")
+    template_name = "pages/confirm_delete.html"
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        messages.success(request, f"{self.model._meta.verbose_name} deleted successfully.")
+        return super().delete(request, *args, **kwargs)
+
+
+class AddTaskTypeView(GenericCreateView):
+    model = TaskType
+    form_class = TaskTypeForm
+
+
+class AddPositionView(GenericCreateView):
+    model = Position
+    form_class = PositionForm
+
+
+class AddTagView(GenericCreateView):
+    model = Tag
+    form_class = TagForm
+
+
+class RemoveTaskTypeView(GenericDeleteView):
+    model = TaskType
+
+
+class RemovePositionView(GenericDeleteView):
+    model = Position
+
+
+class SaveTagsView(LoginRequiredMixin, View):
     def post(self, request, pk):
         task = get_object_or_404(Task, pk=pk)
         selected_tags = request.POST.getlist("tags")
@@ -138,8 +168,7 @@ class SaveTagsView(View):
         return redirect("task_manager:task_update", pk=task.pk)
 
 
-# class TaskListView(LoginRequiredMixin, ListView):
-class TaskListView(ListView):
+class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "pages/task_list.html"
     context_object_name = "task_list"
@@ -169,7 +198,7 @@ class TaskListView(ListView):
         return context
 
 
-class TaskDetailView(DetailView):
+class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = "pages/task_detail.html"
 
@@ -199,10 +228,11 @@ class TaskDetailView(DetailView):
         return redirect("task_manager:task_detail", pk=task.id)
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = "pages/task_create.html"
+    success_url = reverse_lazy("task_manager:task_list")
 
     def get(self, request, *args, **kwargs):
         form = TaskForm()
@@ -227,7 +257,7 @@ class TaskCreateView(CreateView):
         )
 
 
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = "pages/task_update.html"
@@ -240,7 +270,7 @@ class TaskUpdateView(UpdateView):
         return context
 
 
-class TaskDeleteView(DeleteView):
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = "pages/task_delete.html"
     success_url = reverse_lazy("task_manager:task_list")
@@ -251,7 +281,7 @@ class TaskDeleteView(DeleteView):
         return context
 
 
-class MemberListView(ListView):
+class MemberListView(LoginRequiredMixin, ListView):
     model = Worker
     template_name = "pages/member_list.html"
     context_object_name = "workers"
@@ -286,14 +316,14 @@ class MemberListView(ListView):
         return context
 
 
-class MemberCreateView(CreateView):
+class MemberCreateView(LoginRequiredMixin, CreateView):
     model = Worker
     form_class = MemberCreateForm
     template_name = "pages/member_create.html"
     success_url = reverse_lazy("task_manager:member_list")
 
 
-class MemberDetailView(DetailView):
+class MemberDetailView(LoginRequiredMixin, DetailView):
     model = Worker
     template_name = "pages/member_detail.html"
     context_object_name = "worker"
@@ -302,14 +332,14 @@ class MemberDetailView(DetailView):
         return Worker.objects.prefetch_related("tasks")
 
 
-class MemberUpdateView(UpdateView):
+class MemberUpdateView(LoginRequiredMixin, UpdateView):
     model = Worker
     form_class = MemberUpdateForm
     template_name = "pages/member_update.html"
     context_object_name = "worker"
 
 
-class MemberDeleteView(DeleteView):
+class MemberDeleteView(LoginRequiredMixin, DeleteView):
     model = Worker
     success_url = reverse_lazy("task_manager:member_list")
     template_name = "pages/member_delete.html"

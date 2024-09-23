@@ -3,6 +3,7 @@
 {% block title %}Create Member{% endblock %}
 
 {% block content %}
+  {% load static %}
   <div class="row">
     <div class="col-12 col-xl-8">
       <div class="card card-body border-0 shadow mb-4">
@@ -96,10 +97,9 @@
       <div class="row">
         <div class="col-12 mb-4">
           <div class="card shadow border-0 text-center p-0">
-            <div class="profile-cover rounded-top" data-background="{% static 'assets/img/profile-cover' %}"></div>
+            <div class="profile-cover rounded-top" data-background="{% static 'assets/img/profile-cover.jpg' %}"></div>
             <div class="card-body pb-5">
-              {% load static %}
-              <img id="avatar-preview" src="{% static 'assets/img/team/default_avatar' %}"
+              <img id="avatar-preview" src="{% static 'assets/img/team/default_avatar.jpg' %}"
                    class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Member Portrait">
               <h4 class="h3" id="preview_full_name"></h4>
               <h5 class="fw-normal" id="preview_username"></h5>

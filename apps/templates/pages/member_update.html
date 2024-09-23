@@ -90,14 +90,14 @@
         <div class="col-12 mb-4">
           <div class="card shadow border-0 text-center p-0">
             {% load static %}
-            <div class="profile-cover rounded-top" data-background="{% static 'assets/img/profile-cover' %}"></div>
+            <div class="profile-cover rounded-top" data-background="{% static 'assets/img/profile-cover.jpg' %}"></div>
             <div class="card-body pb-5">
               {% if worker.profile_image %}
                 <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
                      src="{{ worker.profile_image.url }}">
               {% else %}
                 <img class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Profile Picture"
-                     src="{% static 'assets/img/team/default_avatar' %}">
+                     src="{% static 'assets/img/team/default_avatar.jpg' %}">
               {% endif %}
               <h4 class="h3">
                 {{ worker.first_name }} {{ worker.last_name }}

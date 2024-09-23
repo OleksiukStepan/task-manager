@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 
 from .forms import LoginForm, SignUpForm
 
@@ -98,7 +98,7 @@ class ResetPassword(LoginRequiredMixin, PasswordChangeView):
         return form
 
     def get_success_url(self):
-        return reverse("task_manager:member_update", kwargs={"pk": self.object.pk})
+        return reverse("task_manager:member_update", kwargs={"pk": self.request.user.pk})
 
 
 def terms_and_conditions(request):

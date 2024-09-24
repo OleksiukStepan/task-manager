@@ -4,6 +4,8 @@ This project is a Task Management System built with Django, allowing users to ma
 It includes task, task type, member, member position and tag.
 Also, it has custom authentication, and robust UI components.
 
+## Try it out
+
 https://task-manager-kobs.onrender.com
 
 Use the following user to log in and check the functionality of the website:

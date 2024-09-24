@@ -306,7 +306,7 @@ class MemberListView(LoginRequiredMixin, ListView):
             "tasks"
         )
         sort_by = self.request.GET.get("sort_by", "username")
-        sort_dir = self.request.GET.get("sort_dir", "desc")
+        sort_dir = self.request.GET.get("sort_dir", "asc")
         form = SearchForm(self.request.GET)
 
         if sort_by in ["username"]:

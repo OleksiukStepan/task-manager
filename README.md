@@ -5,6 +5,14 @@ It includes task, task type, member, member position and tag.
 Also, it has custom authentication, and robust UI components.
 
 
+
+Use the following user to log in and check the functionality of the website:
+
+```shell
+login: user
+password: user_12345
+```
+Please note, as a test user you can't execute delete operations, only admin users have this permission.
 ## Getting started
 
 Python 3 must be already installed

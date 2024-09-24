@@ -25,7 +25,8 @@ CORE_DIR = Path(__file__).parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-!10*ontb@8^2k97b465$_$82gq4eybm)bigereapy!b64%z9mc")
+SECRET_KEY = os.environ.get["DJANGO_SECRET_KEY"]
+"django-insecure-!10*ontb@8^2k97b465$_$82gq4eybm)bigereapy!b64%z9mc"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"

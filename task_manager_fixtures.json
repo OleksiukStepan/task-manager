@@ -172,7 +172,7 @@
       "phone": null,
       "is_online": false,
       "position": null,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_user_1234.jpg",
+      "profile_image": "media/team/20240924224210_user_1234.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -196,7 +196,7 @@
       "phone": null,
       "is_online": false,
       "position": 12,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_jsmith.jpg",
+      "profile_image": "media/team/20240924224210_jsmith.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -220,7 +220,7 @@
       "phone": null,
       "is_online": false,
       "position": 11,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_rjohnson.jpg",
+      "profile_image": "media/team/20240924224211_rjohnson.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -244,7 +244,7 @@
       "phone": null,
       "is_online": false,
       "position": 10,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_kbrown.jpg",
+      "profile_image": "media/team/20240924224210_kbrown.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -268,7 +268,7 @@
       "phone": null,
       "is_online": false,
       "position": 9,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_twhite.jpg",
+      "profile_image": "media/team/20240924224211_twhite.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -292,7 +292,7 @@
       "phone": null,
       "is_online": false,
       "position": 8,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_nharris.jpg",
+      "profile_image": "media/team/20240924224211_nharris.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -316,7 +316,7 @@
       "phone": null,
       "is_online": false,
       "position": 7,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_jthompson.jpg",
+      "profile_image": "media/team/20240924224210_jthompson.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -340,7 +340,7 @@
       "phone": null,
       "is_online": false,
       "position": 6,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_sbaker.jpg",
+      "profile_image": "media/team/20240924224210_sbaker.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -364,7 +364,7 @@
       "phone": null,
       "is_online": false,
       "position": 5,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_cdavis.jpg",
+      "profile_image": "media/team/20240924224210_cdavis.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -388,7 +388,7 @@
       "phone": null,
       "is_online": false,
       "position": 4,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_mmartinez.jpg",
+      "profile_image": "media/team/20240924224211_mmartinez.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -412,7 +412,7 @@
       "phone": null,
       "is_online": false,
       "position": 3,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_ggarcia.jpg",
+      "profile_image": "media/team/20240924224210_ggarcia.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -436,7 +436,7 @@
       "phone": null,
       "is_online": false,
       "position": 2,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_wperez.jpg",
+      "profile_image": "media/team/20240924224211_wperez.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -460,7 +460,7 @@
       "phone": null,
       "is_online": false,
       "position": 12,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_llong.jpg",
+      "profile_image": "media/team/20240924224210_llong.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -484,7 +484,7 @@
       "phone": null,
       "is_online": false,
       "position": 11,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_aroberts.jpg",
+      "profile_image": "media/team/20240924224210_aroberts.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -508,7 +508,7 @@
       "phone": null,
       "is_online": false,
       "position": 10,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_dclark.jpg",
+      "profile_image": "media/team/20240924224210_dclark.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -532,7 +532,7 @@
       "phone": null,
       "is_online": false,
       "position": 9,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_thall.jpg",
+      "profile_image": "media/team/20240924224211_thall.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -556,7 +556,7 @@
       "phone": null,
       "is_online": false,
       "position": 8,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_dbaker.jpg",
+      "profile_image": "media/team/20240924224210_dbaker.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -580,7 +580,7 @@
       "phone": null,
       "is_online": false,
       "position": 7,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_kallen.jpg",
+      "profile_image": "media/team/20240924224210_kallen.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -604,7 +604,7 @@
       "phone": null,
       "is_online": false,
       "position": 6,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_ryoung.jpg",
+      "profile_image": "media/team/20240924224211_ryoung.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -628,7 +628,7 @@
       "phone": null,
       "is_online": false,
       "position": 5,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_jwilson.jpg",
+      "profile_image": "media/team/20240924224210_jwilson.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -652,7 +652,7 @@
       "phone": null,
       "is_online": false,
       "position": 4,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_lmoore.jpg",
+      "profile_image": "media/team/20240924224210_lmoore.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -676,7 +676,7 @@
       "phone": "+380123456789",
       "is_online": false,
       "position": null,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_new_user.jpg",
+      "profile_image": "media/team/20240924224210_new_user.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -686,7 +686,7 @@
     "pk": 29,
     "fields": {
       "password": "pbkdf2_sha256$870000$wyH2KVTPEs9wXC362WphlM$NbD2733PlJXqZzI+syISZyCkrpZKjDwXlOgujE+Xe+o=",
-      "last_login": "2024-09-24T20:04:38.621Z",
+      "last_login": "2024-09-24T22:39:10.169Z",
       "is_superuser": true,
       "username": "admin",
       "first_name": "Stepan",
@@ -700,7 +700,7 @@
       "phone": null,
       "is_online": true,
       "position": 13,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_admin.jpg",
+      "profile_image": "media/team/20240924224211_admin.jpg",
       "groups": [],
       "user_permissions": []
     }
@@ -724,7 +724,7 @@
       "phone": "+123456789",
       "is_online": false,
       "position": 3,
-      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_new_user2.jpg",
+      "profile_image": "media/team/20240924224211_new_user2.jpg",
       "groups": [],
       "user_permissions": []
     }

@@ -37,6 +37,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
+    "task-manager-kobs.onrender.com",
 ]
 
 

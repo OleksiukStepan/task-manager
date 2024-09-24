@@ -7,6 +7,8 @@ Also, it has custom authentication, and robust UI components.
 
 ## Getting started
 
+Python 3 must be already installed
+
 1. Clone repository
 
 ```shell

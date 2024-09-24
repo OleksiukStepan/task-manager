@@ -1,0 +1,1190 @@
+[
+  {
+    "model": "task_manager.tasktype",
+    "pk": 1,
+    "fields": {
+      "name": "Bug"
+    }
+  },
+  {
+    "model": "task_manager.tasktype",
+    "pk": 2,
+    "fields": {
+      "name": "New Feature"
+    }
+  },
+  {
+    "model": "task_manager.tasktype",
+    "pk": 3,
+    "fields": {
+      "name": "Breaking Change"
+    }
+  },
+  {
+    "model": "task_manager.tasktype",
+    "pk": 4,
+    "fields": {
+      "name": "Refactoring"
+    }
+  },
+  {
+    "model": "task_manager.tasktype",
+    "pk": 5,
+    "fields": {
+      "name": "QA"
+    }
+  },
+  {
+    "model": "task_manager.tasktype",
+    "pk": 6,
+    "fields": {
+      "name": "Documentation"
+    }
+  },
+  {
+    "model": "task_manager.tasktype",
+    "pk": 7,
+    "fields": {
+      "name": "Testing"
+    }
+  },
+  {
+    "model": "task_manager.tasktype",
+    "pk": 8,
+    "fields": {
+      "name": "Deployment"
+    }
+  },
+  {
+    "model": "task_manager.tasktype",
+    "pk": 9,
+    "fields": {
+      "name": "Performance Tuning"
+    }
+  },
+  {
+    "model": "task_manager.tasktype",
+    "pk": 10,
+    "fields": {
+      "name": "Security Review"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 2,
+    "fields": {
+      "name": "Project Manager"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 3,
+    "fields": {
+      "name": "QA"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 4,
+    "fields": {
+      "name": "Designer"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 5,
+    "fields": {
+      "name": "DevOps"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 6,
+    "fields": {
+      "name": "Frontend Developer"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 7,
+    "fields": {
+      "name": "Backend Developer"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 8,
+    "fields": {
+      "name": "Data Scientist"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 9,
+    "fields": {
+      "name": "Data Analyst"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 10,
+    "fields": {
+      "name": "IT Support Specialist"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 11,
+    "fields": {
+      "name": "Software Architect"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 12,
+    "fields": {
+      "name": "Security Specialist"
+    }
+  },
+  {
+    "model": "task_manager.position",
+    "pk": 13,
+    "fields": {
+      "name": "Python Developer"
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$GX3TMLAcapJNmiZbeUZQtT$Cs0341xXhhyrGOk/ggiFXbrAQ96w3uA+9ZLxe1rfIAo=",
+      "last_login": "2024-09-19T19:42:56.757Z",
+      "is_superuser": true,
+      "username": "user_1234",
+      "first_name": "",
+      "last_name": "",
+      "email": "user123@user.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-09-09T22:51:13.642Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": null,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_user_1234.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$OaXGmfkwwK1PAZP7L05Htl$UHv1v7N8VBWBKZBUL0F77xH5Oz1eKdSZj8ibT2GYpaA=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jsmith",
+      "first_name": "John",
+      "last_name": "Smith",
+      "email": "jsmith@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:55:57.420Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 12,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_jsmith.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$aePvisTw2Is0M94PlrL1av$hij6wMWHbUqfdaRDwZENM3HfC8gmG4hqgTK/rei+U+I=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "rjohnson",
+      "first_name": "Rachel",
+      "last_name": "Johnson",
+      "email": "rjohnson@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:55:58.144Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 11,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_rjohnson.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$pnHEH9Hd0IkmZTXHidzIaN$n0ZvIm3AOv2aKEI4z/dca/EBORtNc038v8btlFXke6E=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "kbrown",
+      "first_name": "Kevin",
+      "last_name": "Brown",
+      "email": "kbrown@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:55:58.789Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 10,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_kbrown.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$RBAfKgrrZ1OVeO7pjf3yD1$VppF5bT7rCBfDWfI5TckFpZqFR5ys4H3fDCLCmbQTWQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "twhite",
+      "first_name": "Tom",
+      "last_name": "White",
+      "email": "twhite@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:55:59.457Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 9,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_twhite.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$1kZz923qmfpMxVFZPSg4Jx$8OEGMD6t+1hTvwcchUGTECq0VO+VriD6fWKYSumtdZo=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "nharris",
+      "first_name": "Nora",
+      "last_name": "Harris",
+      "email": "nharris@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:00.122Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 8,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_nharris.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$kdss6mpqvl0ett3wwlKdYA$PLc1Cemq1m99Y0AP0ErVpVKgPW+oPD+NBBYp0RYuF9g=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jthompson",
+      "first_name": "James",
+      "last_name": "Thompson",
+      "email": "jthompson@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:00.827Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 7,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_jthompson.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$6UKwqePFncUlmyOCvGLyS9$FC4GD1B85O4ELCQRNO+kaowELB2PMLTvjsMWFa8YpHo=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "sbaker",
+      "first_name": "Joe",
+      "last_name": "Baker",
+      "email": "sbaker@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:01.479Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 6,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_sbaker.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$DXX8S0KQz1XxCRbxUYLpex$SMYkdV6O/82vicnuhyKCWe/gqQ04trx4n8t1qfyDKmA=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "cdavis",
+      "first_name": "Chris",
+      "last_name": "Davis",
+      "email": "cdavis@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:02.174Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 5,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_cdavis.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$N5R58eeoEMWJUyXuEteqZE$YJO4EJ2tsDNzdsgjYsL5IVXBvRcfLeNcOJLDiFLvTZo=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "mmartinez",
+      "first_name": "Maria",
+      "last_name": "Martinez",
+      "email": "mmartinez@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:02.863Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 4,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_mmartinez.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$eWceBOFfhKnvCVajH8pHBJ$GuRTxmVUHEi5UC4SVppw3rFKMcryXSDKbGGCJE4w9tk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "ggarcia",
+      "first_name": "George",
+      "last_name": "Garcia",
+      "email": "ggarcia@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:03.564Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 3,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_ggarcia.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 12,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$8bV03HGbMK7w9moWoLPBqu$LsDJskUkrL9xRX5pejCTRh52iYxyGG61bvYxxLQDvwc=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "wperez",
+      "first_name": "William",
+      "last_name": "Perez",
+      "email": "wperez@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:04.291Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 2,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_wperez.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 13,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$MJXKCyyqXyA7ICzpHrz8Ub$tz5hDg+Q9lAX38kHYGiPaRXJjBTOmH86UviIfhoDB6k=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "llong",
+      "first_name": "Laura",
+      "last_name": "Long",
+      "email": "llong@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:05.033Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 12,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_llong.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 14,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$JjdIyH4SgpA6PTkKWG3HZ0$tDl8IYq0RvyRdSEo5YWwsJ+1I55U4DmH/LMI3tS9MHk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "aroberts",
+      "first_name": "Alan",
+      "last_name": "Roberts",
+      "email": "aroberts@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:05.697Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 11,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_aroberts.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 15,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$8KxfhBGAqJYHRRJOmPl1Tn$iQhdcgL5YkeYuYCWz/gWXdlB9hPVjt2fU9WSvSv3Iqs=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "dclark",
+      "first_name": "Donna",
+      "last_name": "Clark",
+      "email": "dclark@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:06.372Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 10,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_dclark.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 16,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$3N6IhnrG5lm4vydF5XsMAY$W07ytqkrzEYNUBQfLgx4PUltq+9/a3J9naAtb2dJbqQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "thall",
+      "first_name": "Tim",
+      "last_name": "Hall",
+      "email": "thall@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:07.414Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 9,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_thall.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 17,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$QBcAj9lr240s0RaBMLGYKn$3MmzlpIBUJ7llmPgZCxDN/ORKJXq7MkMLMEYF9Pycv0=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "dbaker",
+      "first_name": "David",
+      "last_name": "Baker",
+      "email": "dbaker@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:08.803Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 8,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_dbaker.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 18,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$LpCiBYYSSlP0fnIr1rNvZx$qJitTs0xavlz/2LCSFxu46yw622URzcfKk/M+GvC+BI=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "kallen",
+      "first_name": "Karen",
+      "last_name": "Allen",
+      "email": "kallen@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:10.347Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 7,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_kallen.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 19,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$Qmy0W49WaRQstb4ts2C1Db$f/H2i3/NoEcK4K7AGqGzNzoLGnLr+Cc9lfyhDTrStF8=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "ryoung",
+      "first_name": "Richard",
+      "last_name": "Young",
+      "email": "ryoung@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:11.678Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 6,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_ryoung.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 20,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$cSpCAzAYPe93qcMytudIlz$BoOfA9L0jYcMpSV00pR4QMn+4yQkujCsWBEXFbllNGo=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jwilson",
+      "first_name": "Jason",
+      "last_name": "Wilson",
+      "email": "jwilson@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:12.748Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 5,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_jwilson.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 21,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$3WRD0AazPRb2hqoMgrdNpw$awpocbiiciOKsAGGqhQJBVMkWh+Ya4Bk+mj+q9NIcro=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "lmoore",
+      "first_name": "Linda",
+      "last_name": "Moore",
+      "email": "lmoore@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-13T16:56:13.502Z",
+      "birthday": null,
+      "male": null,
+      "phone": null,
+      "is_online": false,
+      "position": 4,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_lmoore.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 28,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$f5CvdIp1ZbH13lPJlFlZrZ$3QOsftKCUWx9RB6kP5awwmnBGowXwbbJiI3l7tdT4HM=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "new_user",
+      "first_name": "Firstname",
+      "last_name": "Lastname",
+      "email": "new@new.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-19T11:22:54.368Z",
+      "birthday": null,
+      "male": true,
+      "phone": "+380123456789",
+      "is_online": false,
+      "position": null,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_new_user.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 29,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$wyH2KVTPEs9wXC362WphlM$NbD2733PlJXqZzI+syISZyCkrpZKjDwXlOgujE+Xe+o=",
+      "last_login": "2024-09-24T20:04:38.621Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Stepan",
+      "last_name": "Oleksiuk",
+      "email": "admin@admin.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-09-20T13:47:16Z",
+      "birthday": "1996-10-28",
+      "male": true,
+      "phone": null,
+      "is_online": true,
+      "position": 13,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_admin.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.worker",
+    "pk": 30,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$tjG9f8pnKTQlj6jmN7xFRK$7Mst0A6hLVg14cl4jiSM3XLbBP+2cyT5u8VqIGXqrqc=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "new_user2",
+      "first_name": "New",
+      "last_name": "User",
+      "email": "some@email.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-09-21T17:07:25.499Z",
+      "birthday": "1992-10-29",
+      "male": true,
+      "phone": "+123456789",
+      "is_online": false,
+      "position": 3,
+      "profile_image": "apps/task_manager/static/assets/img/team/20240924142435_new_user2.jpg",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "task_manager.tag",
+    "pk": 3,
+    "fields": {
+      "name": "Fix",
+      "color": "#ded3d3"
+    }
+  },
+  {
+    "model": "task_manager.tag",
+    "pk": 4,
+    "fields": {
+      "name": "Programs",
+      "color": "#f09e9e"
+    }
+  },
+  {
+    "model": "task_manager.tag",
+    "pk": 5,
+    "fields": {
+      "name": "Bug",
+      "color": "#59eed0"
+    }
+  },
+  {
+    "model": "task_manager.tag",
+    "pk": 6,
+    "fields": {
+      "name": "Python",
+      "color": "#adb3ff"
+    }
+  },
+  {
+    "model": "task_manager.tag",
+    "pk": 7,
+    "fields": {
+      "name": "Java",
+      "color": "#ff2929"
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 3,
+    "fields": {
+      "name": "Fix Login Bug",
+      "description": "Fix issue with login failure on mobile",
+      "deadline": "2024-10-01",
+      "is_complete": true,
+      "priority": 2,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 2,
+      "assignees": [
+        29
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 4,
+    "fields": {
+      "name": "Implement New Payment Gateway",
+      "description": "Add Stripe support to payment module",
+      "deadline": "2024-11-15",
+      "is_complete": false,
+      "priority": 4,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 2,
+      "assignees": [
+        29
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 5,
+    "fields": {
+      "name": "Refactor User Authentication Logic",
+      "description": "Improve authentication flow for performance",
+      "deadline": "2024-09-20",
+      "is_complete": true,
+      "priority": 3,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 4,
+      "assignees": [
+        29
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 6,
+    "fields": {
+      "name": "Design New Landing Page",
+      "description": "Create new design for the product homepage",
+      "deadline": "2024-10-05",
+      "is_complete": false,
+      "priority": 3,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 2,
+      "assignees": [
+        29
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 7,
+    "fields": {
+      "name": "Fix CSS Issues on Mobile View",
+      "description": "Resolve styling issues affecting the mobile view of the website to enhance user experience on smaller screens. This involves identifying and fixing layout inconsistencies, text readability problems, and responsive design flaws that disrupt the overall functionality and aesthetics on mobile devices. The goal is to ensure that all elements, including navigation, images, buttons, and text, are properly adjusted and optimized for mobile, providing a seamless and visually appealing experience across different screen sizes and orientations.",
+      "deadline": "2024-10-22",
+      "is_complete": true,
+      "priority": 2,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 1,
+      "assignees": [
+        29
+      ],
+      "tags": [
+        3,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 8,
+    "fields": {
+      "name": "Optimize Image Loading",
+      "description": "Implement lazy loading for images",
+      "deadline": "2024-10-10",
+      "is_complete": false,
+      "priority": 1,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 9,
+      "assignees": [
+        29
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 9,
+    "fields": {
+      "name": "Backend API Refactor",
+      "description": "Refactor backend API for better performance",
+      "deadline": "2024-09-25",
+      "is_complete": true,
+      "priority": 4,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 4,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 10,
+    "fields": {
+      "name": "QA Testing for Payment System",
+      "description": "Complete QA testing for the new payment system",
+      "deadline": "2024-09-30",
+      "is_complete": false,
+      "priority": 2,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 5,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 11,
+    "fields": {
+      "name": "Document API Endpoints",
+      "description": "Complete documentation for the API endpoints",
+      "deadline": "2024-10-20",
+      "is_complete": false,
+      "priority": 1,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 6,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 12,
+    "fields": {
+      "name": "Security Review of Backend",
+      "description": "Conduct a security audit for backend services",
+      "deadline": "2024-11-01",
+      "is_complete": false,
+      "priority": 2,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 10,
+      "assignees": [
+        29
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 13,
+    "fields": {
+      "name": "Add New User Roles",
+      "description": "Implement role-based access control",
+      "deadline": "2024-09-28",
+      "is_complete": false,
+      "priority": 4,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 2,
+      "assignees": [
+        29
+      ],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 14,
+    "fields": {
+      "name": "Fix Password Reset Bug",
+      "description": "Fix issue where password reset emails aren't sent",
+      "deadline": "2024-09-27",
+      "is_complete": true,
+      "priority": 4,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 1,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 15,
+    "fields": {
+      "name": "Implement OAuth Login",
+      "description": "Add Google and Facebook OAuth login support",
+      "deadline": "2024-10-15",
+      "is_complete": false,
+      "priority": 1,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 2,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 16,
+    "fields": {
+      "name": "Deployment Pipeline for Backend",
+      "description": "Set up a continuous deployment pipeline",
+      "deadline": "2024-10-10",
+      "is_complete": false,
+      "priority": 2,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 8,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 17,
+    "fields": {
+      "name": "Optimize Database Queries",
+      "description": "Optimize database queries for faster performance",
+      "deadline": "2024-09-22",
+      "is_complete": true,
+      "priority": 1,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 9,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 18,
+    "fields": {
+      "name": "Add Dark Mode to Web App",
+      "description": "Implement dark mode for the entire web app",
+      "deadline": "2024-10-12",
+      "is_complete": false,
+      "priority": 2,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 2,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 19,
+    "fields": {
+      "name": "Fix Frontend Responsive Issues",
+      "description": "Fix issues with responsive design on mobile",
+      "deadline": "2024-09-26",
+      "is_complete": true,
+      "priority": 2,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 1,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 20,
+    "fields": {
+      "name": "Migrate Database to New Server",
+      "description": "Migrate database to a new, faster server",
+      "deadline": "2024-10-18",
+      "is_complete": false,
+      "priority": 2,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 8,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 21,
+    "fields": {
+      "name": "Code Review for Backend API",
+      "description": "Conduct code review for the new backend API",
+      "deadline": "2024-09-30",
+      "is_complete": true,
+      "priority": 1,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 5,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 22,
+    "fields": {
+      "name": "Fix CORS Issues",
+      "description": "Fix cross-origin resource sharing issues",
+      "deadline": "2024-09-20",
+      "is_complete": true,
+      "priority": 3,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 1,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 23,
+    "fields": {
+      "name": "Add CI/CD Pipeline",
+      "description": "Set up continuous integration and deployment",
+      "deadline": "2024-10-05",
+      "is_complete": false,
+      "priority": 1,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 8,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 24,
+    "fields": {
+      "name": "Backend Load Testing",
+      "description": "Conduct load testing on the backend",
+      "deadline": "2024-09-25",
+      "is_complete": true,
+      "priority": 1,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 7,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 25,
+    "fields": {
+      "name": "Frontend Load Testing",
+      "description": "Conduct load testing on the frontend",
+      "deadline": "2024-09-28",
+      "is_complete": false,
+      "priority": 4,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 7,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 26,
+    "fields": {
+      "name": "Fix Dashboard Bug",
+      "description": "Fix issue with dashboard not loading",
+      "deadline": "2024-09-24",
+      "is_complete": true,
+      "priority": 1,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 1,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 27,
+    "fields": {
+      "name": "Add Logging to Backend",
+      "description": "Implement logging in backend services",
+      "deadline": "2024-09-30",
+      "is_complete": false,
+      "priority": 1,
+      "created_at": "2024-09-17T19:00:46.756Z",
+      "task_type": 2,
+      "assignees": [],
+      "tags": []
+    }
+  },
+  {
+    "model": "task_manager.task",
+    "pk": 28,
+    "fields": {
+      "name": "New Task",
+      "description": "Some description",
+      "deadline": "2025-12-20",
+      "is_complete": true,
+      "priority": 2,
+      "created_at": "2024-09-21T19:50:49.729Z",
+      "task_type": 3,
+      "assignees": [
+        1,
+        14,
+        9,
+        29
+      ],
+      "tags": [
+        3,
+        4
+      ]
+    }
+  }
+]

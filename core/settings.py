@@ -24,12 +24,15 @@ CORE_DIR = Path(__file__).parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-!10*ontb@8^2k97b465$_$82gq4eybm)bigereapy!b64%z9mc"
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-!10*ontb@8^2k97b465$_$82gq4eybm)bigereapy!b64%z9mc")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+]
 
 
 # Application definition
@@ -43,7 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # 3rd apps
-    "debug-toolbar"
+    "debug_toolbar",
 
     # my apps
     "apps.task_manager",

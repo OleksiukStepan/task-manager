@@ -26,7 +26,7 @@ def user_directory_path(instance, filename):
         f"{timezone.now().strftime('%Y%m%d%H%M%S')}"
         f"_{instance.username}.{ext}"
     )
-    return os.path.join("media/team/", filename)
+    return os.path.join("team/", filename)
 
 
 class Worker(AbstractUser):

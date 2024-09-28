@@ -6,17 +6,29 @@ from django import forms
 from apps.task_manager.models import Worker, TaskType, Position, Task, Tag
 
 
-class MemberCreateForm(UserCreationForm):
+COMMON_WIDGET_ATTRS = {"class": "form-control"}
+
+
+def get_text_input_widget(placeholder):
+    return forms.TextInput(
+        attrs={**COMMON_WIDGET_ATTRS, "placeholder": placeholder}
+    )
+
+
+class WorkerFormMixin:
     profile_image = forms.ImageField(
         required=False,
         widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
         label="Profile Image",
     )
+
+
+class MemberCreateForm(WorkerFormMixin, UserCreationForm):
     password1 = forms.CharField(
         label="Password",
         widget=forms.PasswordInput(
             attrs={
-                "class": "form-control",
+                **COMMON_WIDGET_ATTRS,
                 "placeholder": "Password",
                 "required": True
             }
@@ -26,7 +38,7 @@ class MemberCreateForm(UserCreationForm):
         label="Confirm Password",
         widget=forms.PasswordInput(
             attrs={
-                "class": "form-control",
+                **COMMON_WIDGET_ATTRS,
                 "placeholder": "Confirm Password",
                 "required": True,
             }
@@ -49,45 +61,20 @@ class MemberCreateForm(UserCreationForm):
             "profile_image",
         ]
         widgets = {
-            "username": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Username",
-                    "required": True,
-                }
-            ),
-            "first_name": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "First Name",
-                }
-            ),
-            "last_name": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Last Name",
-                }
-            ),
+            "username": get_text_input_widget("Username"),
+            "first_name": get_text_input_widget("First Name"),
+            "last_name": get_text_input_widget("Last Name"),
             "email": forms.EmailInput(
                 attrs={
-                    "class": "form-control",
+                    **COMMON_WIDGET_ATTRS,
                     "placeholder": "name@company.com",
                 }
             ),
-            "position": forms.Select(
-                attrs={
-                    "class": "form-select",
-                }
-            ),
-            "phone": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "+12-345 678 910",
-                }
-            ),
+            "position": forms.Select(attrs={"class": "form-select"}),
+            "phone": get_text_input_widget("+12-345 678 910"),
             "birthday": forms.DateInput(
                 attrs={
-                    "class": "form-control",
+                    **COMMON_WIDGET_ATTRS,
                     "placeholder": "dd/mm/yyyy",
                     "type": "date",
                 }
@@ -102,13 +89,7 @@ class MemberCreateForm(UserCreationForm):
         }
 
 
-class MemberUpdateForm(forms.ModelForm):
-    profile_image = forms.ImageField(
-        required=False,
-        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
-        label="Profile Image",
-    )
-
+class MemberUpdateForm(WorkerFormMixin, forms.ModelForm):
     class Meta(MemberCreateForm.Meta):
         fields = [
             "username",
@@ -135,16 +116,10 @@ class TaskForm(forms.ModelForm):
             "is_complete",
         ]
         widgets = {
-            "name": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "Enter task name",
-                    "required": False,
-                }
-            ),
+            "name": get_text_input_widget("Enter task name"),
             "description": forms.Textarea(
                 attrs={
-                    "class": "form-control",
+                    **COMMON_WIDGET_ATTRS,
                     "placeholder": "Enter task description",
                     "rows": 3,
                     "required": False,
@@ -152,16 +127,16 @@ class TaskForm(forms.ModelForm):
             ),
             "deadline": forms.DateInput(
                 attrs={
-                    "class": "form-control",
+                    **COMMON_WIDGET_ATTRS,
                     "type": "date",
                     "required": False,
                 }
             ),
             "priority": forms.Select(
-                attrs={"class": "form-control", "required": False}
+                attrs={**COMMON_WIDGET_ATTRS, "required": False}
             ),
             "task_type": forms.Select(
-                attrs={"class": "form-control", "required": False}
+                attrs={**COMMON_WIDGET_ATTRS, "required": False}
             ),
             "is_complete": forms.CheckboxInput(
                 attrs={"class": "form-check-input", "required": False}
@@ -193,12 +168,7 @@ class TaskTypeForm(forms.ModelForm):
         model = TaskType
         fields = ["name"]
         widgets = {
-            "name": forms.TextInput(
-                attrs={
-                    "class": "form-control mb-2",
-                    "placeholder": "Enter task type name",
-                }
-            )
+            "name": get_text_input_widget("Enter task type name"),
         }
 
 
@@ -207,12 +177,7 @@ class PositionForm(forms.ModelForm):
         model = Position
         fields = ["name"]
         widgets = {
-            "name": forms.TextInput(
-                attrs={
-                    "class": "form-control mb-2",
-                    "placeholder": "Enter position name",
-                }
-            )
+            "name": get_text_input_widget("Enter position name"),
         }
 
 
@@ -221,15 +186,10 @@ class TagForm(forms.ModelForm):
         model = Tag
         fields = ["name", "color"]
         widgets = {
-            "name": forms.TextInput(
-                attrs={
-                    "class": "form-control mb-2",
-                    "placeholder": "Enter position name",
-                }
-            ),
+            "name": get_text_input_widget("Enter tag name"),
             "color": forms.TextInput(
                 attrs={
-                    "class": "form-control mb-2",
+                    **COMMON_WIDGET_ATTRS,
                     "placeholder": "Enter tag color",
                     "type": "color",
                 }

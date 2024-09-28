@@ -184,7 +184,9 @@ class TaskListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Task.objects.select_related("task_type")
+        queryset = Task.objects.select_related("task_type").prefetch_related(
+            "assignees", "tags",
+        )
         sort_by = self.request.GET.get("sort_by", "created_at")
         sort_dir = self.request.GET.get("sort_dir", "desc")
         form = SearchForm(self.request.GET)
@@ -210,15 +212,20 @@ class TaskListView(LoginRequiredMixin, ListView):
         return context
 
 
-class TaskDetailView(LoginRequiredMixin, DetailView):
+class TaskContextMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["workers"] = Worker.objects.prefetch_related("tasks").all()
+        context["tags"] = Tag.objects.all()
+        return context
+
+
+class TaskDetailView(LoginRequiredMixin, TaskContextMixin, DetailView):
     model = Task
     template_name = "pages/task_detail.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
-        task = self.get_object()
-        context["workers"] = Worker.objects.all()
-        context["tags"] = task.tags.all()
         context["title"] = "Task Detail"
         return context
 
@@ -240,7 +247,7 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
         return redirect("task_manager:task_detail", pk=task.id)
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
+class TaskCreateView(LoginRequiredMixin, TaskContextMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = "pages/task_create.html"
@@ -248,11 +255,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
     def get(self, request, *args, **kwargs):
         form = TaskForm()
-        workers = Worker.objects.all()
-        return render(
-            request, "pages/task_create.html",
-            {"form": form, "workers": workers}
-        )
+        return self.render_to_response({"form": form})
 
     def post(self, request, *args, **kwargs):
         form = TaskForm(request.POST)
@@ -271,15 +274,13 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
         )
 
 
-class TaskUpdateView(LoginRequiredMixin, UpdateView):
+class TaskUpdateView(LoginRequiredMixin, TaskContextMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = "pages/task_update.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["workers"] = Worker.objects.all()
-        context["tags"] = Tag.objects.all()
         context["title"] = "Update Task"
         return context
 

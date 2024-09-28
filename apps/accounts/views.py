@@ -26,7 +26,7 @@ def login_view(request):
                     request.session.set_expiry(settings.SESSION_COOKIE_AGE)
                 else:
                     # Set session to expire in 7 days
-                    request.session.set_expiry(604800)
+                    request.session.set_expiry(7 * 24 * 60 * 60)
                 return redirect("/")
             else:
                 msg = "Invalid credentials"

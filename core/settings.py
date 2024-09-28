@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -53,6 +56,8 @@ INSTALLED_APPS = [
 
     # 3rd apps
     "debug_toolbar",
+    "cloudinary",
+    "cloudinary_storage",
 
     # my apps
     "apps.task_manager",
@@ -168,3 +173,11 @@ MEDIA_ROOT = BASE_DIR / "media/"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+cloudinary.config(
+    cloud_name="dk8llnkrq",
+    api_key="759835712227683",
+    api_secret="Wvb4eEcaN52gV7s7Uk6OXoHvjLE",
+    secure=True
+)
+# os.getenv()

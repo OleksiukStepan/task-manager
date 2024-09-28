@@ -1,9 +1,7 @@
-import os
-
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.urls import reverse
-from django.utils import timezone
+from cloudinary.models import CloudinaryField
 
 
 class TaskType(models.Model):
@@ -20,15 +18,6 @@ class Position(models.Model):
         return self.name
 
 
-def user_directory_path(instance, filename):
-    ext = filename.split(".")[-1]
-    filename = (
-        f"{timezone.now().strftime('%Y%m%d%H%M%S')}"
-        f"_{instance.username}.{ext}"
-    )
-    return os.path.join("team/", filename)
-
-
 class Worker(AbstractUser):
     birthday = models.DateField(null=True, blank=True)
     male = models.BooleanField(null=True, blank=True)
@@ -40,9 +29,7 @@ class Worker(AbstractUser):
         null=True,
         blank=True,
     )
-    profile_image = models.ImageField(
-        upload_to=user_directory_path, max_length=255, blank=True, null=True
-    )
+    profile_image = CloudinaryField("image", blank=True, null=True)
 
     class Meta:
         ordering = ["first_name"]

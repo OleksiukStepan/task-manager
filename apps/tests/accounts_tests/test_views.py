@@ -130,4 +130,6 @@ class ResetPasswordTests(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertTrue(response.wsgi_request.user.is_authenticated)
-        self.assertEqual(response.wsgi_request.session.get_expiry_age(), 604800)
+        self.assertEqual(
+            response.wsgi_request.session.get_expiry_age(), 7 * 24 * 60 * 60
+        )

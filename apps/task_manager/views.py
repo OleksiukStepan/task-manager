@@ -184,7 +184,9 @@ class TaskListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = Task.objects.select_related("task_type")
+        queryset = Task.objects.select_related("task_type").prefetch_related(
+            "assignees", "tags",
+        )
         sort_by = self.request.GET.get("sort_by", "created_at")
         sort_dir = self.request.GET.get("sort_dir", "desc")
         form = SearchForm(self.request.GET)
@@ -217,7 +219,7 @@ class TaskDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         task = self.get_object()
-        context["workers"] = Worker.objects.all()
+        context["workers"] = Worker.objects.prefetch_related("tasks").all()
         context["tags"] = task.tags.all()
         context["title"] = "Task Detail"
         return context
@@ -248,7 +250,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
     def get(self, request, *args, **kwargs):
         form = TaskForm()
-        workers = Worker.objects.all()
+        workers = Worker.objects.prefetch_related("tasks").all()
         return render(
             request, "pages/task_create.html",
             {"form": form, "workers": workers}
@@ -278,7 +280,7 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["workers"] = Worker.objects.all()
+        context["workers"] = Worker.objects.prefetch_related("tasks").all()
         context["tags"] = Tag.objects.all()
         context["title"] = "Update Task"
         return context

@@ -1,0 +1,93 @@
+<!--
+
+=========================================================
+* Volt Free - Bootstrap 5 Dashboard
+=========================================================
+
+* Product Page: https://themesberg.com/product/admin-dashboard/volt-bootstrap-5-dashboard
+* Copyright 2021 Themesberg (https://www.themesberg.com)
+* License (https://themesberg.com/licensing)
+
+* Designed and coded by https://themesberg.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. Please contact us to request a removal.
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Primary Meta Tags -->
+
+<title>
+    Task Manager - {% block title %}{% endblock %}
+</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="Task_manager">
+<meta name="author" content="Oleksiuk Stepan">
+<meta name="description" content="Project to manage the IT team by creating and assigning tasks to employees.">
+<meta name="keywords" content="task, manager, stepan, oleksiuk" />
+<link rel="canonical" href="https://task-manager-kobs.onrender.com">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://task-manager-kobs.onrender.com">
+<meta property="og:title" content="Task_manager">
+<meta property="og:description" content="Project to manage the IT team by creating and assigning tasks to employees.">
+<meta property="og:image" content="https://res.cloudinary.com/dk8llnkrq/image/upload/v1727546565/frittwqvoifv6jzlm7fs.png">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://task-manager-kobs.onrender.com">
+<meta property="twitter:title" content="Task_manager">
+<meta property="twitter:description" content="Project to manage the IT team by creating and assigning tasks to employees.">
+<meta property="twitter:image" content="https://res.cloudinary.com/dk8llnkrq/image/upload/v1727546565/frittwqvoifv6jzlm7fs.png">
+
+<!-- Favicon -->
+{% load static %}
+<link rel="apple-touch-icon" sizes="120x120" href="{% static 'assets/img/favicon/apple-touch-icon.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon/favicon-16x16.png' %}">
+<link rel="manifest" href="{% static 'assets/img/favicon/site.webmanifest' %}">
+<link rel="mask-icon" href="{% static 'assets/img/favicon/safari-pinned-tab.svg' %}" color="#ffffff">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<link type="text/css" href="{% static 'assets/vendor/sweetalert2/dist/sweetalert2.min.css' %}" rel="stylesheet">
+
+<link type="text/css" href="{% static 'assets/vendor/notyf/notyf.min.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'assets/css/volt.css' %}" rel="stylesheet">
+
+<!-- Specific Page JS goes HERE  -->    
+{% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    {% include 'includes/sidebar.html' %}
+    
+    <main class="content flex-fill d-flex flex-column">
+      
+      
+      {% include 'includes/navigation.html' %}
+    
+      <div class="flex-fill mt-3">
+      {% block content %}{% endblock content %}
+      </div>
+    
+      {% include 'includes/footer.html' %}
+
+    </main>
+
+  {% include 'includes/scripts.html' %}
+
+  {% include 'includes/item_modal.html' %}
+
+  <!-- Specific Page JS goes HERE  -->
+  {% block javascripts %}{% endblock javascripts %}  
+      
+</body>
+</html>
